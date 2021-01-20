@@ -1,4 +1,6 @@
-fetch('checklist.json')
+let comments = [];
+
+fetch('static/checklist.json')
     .then(function (response) {
         return response.json();
     })
@@ -18,4 +20,17 @@ function appendData(data) {
         div.setAttribute("class", ("row"));
         mainContainer.appendChild(div);
     }
-}
+};
+
+document.getElementById('submit').onclick = function() {
+    var checkboxes = document.getElementsByName('cb');
+    for (var checkbox of checkboxes) {
+      if (checkbox.checked) {
+        let cIndex = "c"+String(checkbox.id);
+        let rIndex = "r"+String(checkbox.id);
+        let comment = document.getElementById(cIndex);
+        let reference = document.getElementById(rIndex);
+        checkbox.value = comment.innerHTML + " (" + reference.innerHTML + ").";
+        console.log(checkbox.value));
+  }}
+};
