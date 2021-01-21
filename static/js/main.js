@@ -30,7 +30,7 @@ document.getElementById('submit').onclick = function() {
         let rIndex = "r"+String(checkbox.id);
         let comment = document.getElementById(cIndex);
         let reference = document.getElementById(rIndex);
-        checkbox.value = comment.innerHTML + " (" + reference.innerHTML + ").";
-        console.log(checkbox.value));
+        checkbox.value = comment.value + " (" + reference.innerHTML + ".)";
+        console.log(checkbox.value);
   }}
 };

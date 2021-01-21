@@ -4,7 +4,7 @@
        "checkbox": "<input name=\"cb\" id=\"1\" type=\"checkbox\" value=\"\">",
        "problem": "<p id=\"p1\">RCP is being proposed and there is not a VDOT IS-1 detail on the plans</p>",
        "comment": "<textarea rows=\"3\" cols=\"75\" id=\"c1\" name=\"c1\">All storm structures (drop inlets, catch basins, and manholes, etc.) shall have full diameter invert shaping in accordance with VDOT Standard IS-1.</textarea>",
-       "reference": "<p id=\"r1\">PWDSM 8.6 A. 2.</p>"
+       "reference": "<p id=\"r1\">PWDSM 8.6 A. 2</p>"
    },
    {
       "id": "2",
