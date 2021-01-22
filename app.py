@@ -1,20 +1,17 @@
-#TODO 
-#Add collapsible sections 
-
 from flask import Flask, render_template, request, redirect, send_file
-import smtplib, os, csv_to_json
+import smtplib, os, get_data_from_csvs
 from docx import Document
 from cStringIO import StringIO
 from docx.shared import Inches, Pt
 from datetime import datetime
 
+
 app = Flask(__name__, static_folder='static') #turn this file into a web application
 
-csv_to_json.make_json((os.getcwd()+'/static/Names.csv'), (os.getcwd()+'/static/GOOBAH.json'))
+get_data_from_csvs.categorize_csvs()
 
 @app.route("/") #listen to get r`equests on slash
 def index():
-    
     return render_template("index.html") 
 
 @app.route("/register", methods=["POST"])
@@ -28,6 +25,7 @@ def register():
         f.seek(0)
         return send_file(f, as_attachment=True, attachment_filename='report.doc')
 
+#MAKE INTO ANOTHER FILE
 def Make_Letter(comments):
     doc = Document()
     sections = doc.sections

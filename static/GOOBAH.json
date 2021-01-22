@@ -1,0 +1,26 @@
+[{
+    "Erosion and Sediment Control": {
+        "Stormwater - General Requirements": {
+            "Comment": "Provide the predeveloped and post developed drainage area maps to the plans", 
+            "Problem": "No drainage area maps", 
+            "id": 2, 
+            "Reference": "City Code, Appendix D, Sec. 1-6.)"
+        }
+    }, 
+    "Stormwater": {
+        "Stormwater - General Requirements": {
+            "Comment": "Provide the predeveloped and post developed drainage area maps to the plans", 
+            "Problem": "No drainage area maps", 
+            "id": 6, 
+            "Reference": "City Code, Appendix D, Sec. 1-6.)("
+        }
+    }, 
+    "General": {
+        "Site Plan - General Requirements": {
+            "Comment": "Please correct the scale, it does not match the site plan. ", 
+            "Problem": "There is an incorrect or missing scale", 
+            "id": 8, 
+            "Reference": "Guide to Commercial Site Plan Development"
+        }
+    }
+}]

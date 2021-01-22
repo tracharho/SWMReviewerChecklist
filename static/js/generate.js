@@ -23,13 +23,15 @@ function appendData(data) {
     collapsible.setAttribute("name", String("collapsible1"));
     mainContainer.appendChild(anchor);
     anchor.appendChild(collapsible);
-
-    for (var i = 1; i < (1+data.length); i++) {
-        let j = i-1;
-        var div = document.createElement("div");
-        div.innerHTML = data[j].checkbox + ' ' + data[j].problem + data[j].comment + data[j].reference;
-        div.setAttribute("id", ("row" + i));
-        div.setAttribute("class", ("row"));
-        mainContainer.appendChild(div);
+};
+    for (var i = 0; i < (data.length); i++) {
+        for (var j = 0; j < (data[i].length); j++) {
+            for (var k = 0; k < (data[i][j].length); k++) {
+                var div = document.createElement("div");
+                div.innerHTML = data[i][j][k];
+                div.setAttribute("id", ("row" + i));
+                div.setAttribute("class", ("row"));
+                mainContainer.appendChild(div);
+        }
     }
 };
