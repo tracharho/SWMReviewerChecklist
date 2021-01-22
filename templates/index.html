@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>SWM Reviewer Checklist</title>
-    <link rel=stylesheet type=text/css href="static/css/styles.css">
-  </head>
-  <body>
-    <h1>SWM Reviewer Checklist</h1>
-    <form action="/register" method="POST">
-    <div id="myData"></div>
-    <input type="submit" value="Submit" id="submit">
-    <script type="text/javascript" src="static/js/main.js"></script>
-    </form>
-  </body>
-</html>
+{% extends 'template.html' %}
+{% block content %}
+<form action="/register" method="POST">
+  <div id="myData"></div>
+  <input type="submit" value="Submit" id="submit">
+  <script type="text/javascript" src="static/js/functions.js"></script>
+</form>
+{% endblock %}

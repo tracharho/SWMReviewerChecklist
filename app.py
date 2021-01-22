@@ -1,5 +1,8 @@
+#TODO 
+#Add collapsible sections 
+
 from flask import Flask, render_template, request, redirect, send_file
-import smtplib, os
+import smtplib, os, csv_to_json
 from docx import Document
 from cStringIO import StringIO
 from docx.shared import Inches, Pt
@@ -7,27 +10,16 @@ from datetime import datetime
 
 app = Flask(__name__, static_folder='static') #turn this file into a web application
 
-@app.route("/") #listen to get requests on slash
+csv_to_json.make_json((os.getcwd()+'/static/Names.csv'), (os.getcwd()+'/static/GOOBAH.json'))
+
+@app.route("/") #listen to get r`equests on slash
 def index():
-    #name = request.args.get("name", "Brian") #read documentation
+    
     return render_template("index.html") 
 
-
-# @app.route("/register", methods=["POST"])
-# def register():
-#     name = request.form.get("name")
-#     dorm = request.form.get("dorm")
-#     if not name or not dorm:
-#         return "failure" #returns failure if 
-#     return render_template("success.html")
-
-@app.route("/registrants")
-def registrants():
-    return render_template("registered.html", students=students)
-
-@app.route("/register", methods=["POST", "GET"])
+@app.route("/register", methods=["POST"])
 def register():
-    if request.method == 'POST':
+    if request.method == 'POST':        
         comments = request.form.getlist('cb')
         document = Make_Letter(comments)
         f = StringIO()
@@ -41,7 +33,6 @@ def Make_Letter(comments):
     sections = doc.sections
     sections[0].left_margin,sections[0].right_margin,sections[0].top_margin,sections[0].bottom_margin = Inches(0.75), Inches(0.75), Inches(0.5), Inches(0.5)    # Adding the City Logo
     doc.add_picture(os.getcwd()+'/static/LetterHead.PNG')
-
     Para1 = doc.add_paragraph('INTER-OFFICE MEMORANDUM')
     Para1.runs[0].style = 'Title Char'
     Para1.add_run('\n\nDATE:').bold=True

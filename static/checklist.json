@@ -1,8 +1,8 @@
-[
-   {
+ [
+ {
        "id": "1",
        "checkbox": "<input name=\"cb\" id=\"1\" type=\"checkbox\" value=\"\">",
-       "problem": "<p id=\"p1\">RCP is being proposed and there is not a VDOT IS-1 detail on the plans</p>",
+       "problem": "<p id=\"p1\"> GOOOOBAHis being proposed and there is not a VDOT IS-1 detail on the plans</p>",
        "comment": "<textarea rows=\"3\" cols=\"75\" id=\"c1\" name=\"c1\">All storm structures (drop inlets, catch basins, and manholes, etc.) shall have full diameter invert shaping in accordance with VDOT Standard IS-1.</textarea>",
        "reference": "<p id=\"r1\">PWDSM 8.6 A. 2</p>"
    },
@@ -13,4 +13,4 @@
       "comment": "<textarea rows=\"3\" cols=\"75\" id=\"c2\" name=\"c1\">The minimum and maximum pipe slopes required by the VDOT DM shall be used. Ensure that all pipes are at a minimum of 0.3%</textarea>",
       "reference": "<p id=\"r2\">PWDSM 8.6 B. 4</p>"
    }
-]
+ ]
