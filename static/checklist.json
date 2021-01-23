@@ -1,44 +1,11 @@
 [{
     "Erosion and Sediment Control": {
-        "Stormwater - General Requirements": {
-            "row1": {
-                "Problem": "Missing Stormwater Narrative",
-                "Comment": "Provide a Stormwater Management Narrative with the following information, but not be limited to: Description of existing site conditions; Pre-development and post-development drainage conditions and patterns; Disturbed area; Proposed impervious area; Soil characteristics; Description of proposed development; Description of proposed stormwater management facilities; Special circumstances and assumptions; Summary of flow results and how the stormwater management design meets water quality and water quantity (channel and flood protection) requirements in accordance with the City Stormwater Management Ordinance",
-                "Reference": "(City Code, Appendix D, Sec. 1-6.)"
-            },
-            "row2": {
-                "Problem": "No drainage area maps",
-                "Comment": "Provide the predeveloped and post developed drainage area maps to the plans",
-                "Reference": "City Code, Appendix D, Sec. 1-6.)"
-            }
-        }
-    },
+        "Silt Fence": {}
+    }, 
     "Stormwater": {
-        "Stormwater - General Requirements": {
-            "row5": {
-                "Problem": "Missing Stormwater Narrative",
-                "Comment": "Provide a Stormwater Management Narrative with the following information, but not be limited to: Description of existing site conditions; Pre-development and post-development drainage conditions and patterns; Disturbed area; Proposed impervious area; Soil characteristics; Description of proposed development; Description of proposed stormwater management facilities; Special circumstances and assumptions; Summary of flow results and how the stormwater management design meets water quality and water quantity (channel and flood protection) requirements in accordance with the City Stormwater Management Ordinance",
-                "Reference": "(City Code, Appendix D, Sec. 1-6.)"
-            },
-            "row6": {
-                "Problem": "No drainage area maps",
-                "Comment": "Provide the predeveloped and post developed drainage area maps to the plans",
-                "Reference": "City Code, Appendix D, Sec. 1-6.)("
-            }
-        }
-    },
+        "Stormwater - General Requirements": {}
+    }, 
     "General": {
-        "Site Plan - General Requirements": {
-            "row7": {
-                "Problem": "The title is missing on the site plans.",
-                "Comment": "Provide a title to the site plan. ",
-                "Reference": "Guide to Commercial Site Plan Development"
-            },
-            "row8": {
-                "Problem": "There is an incorrect or missing scale",
-                "Comment": "Please correct the scale, it does not match the site plan. ",
-                "Reference": "Guide to Commercial Site Plan Development"
-            }
-        }
+        "Site Plan - General Requirements": {}
     }
 }]

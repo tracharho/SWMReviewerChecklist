@@ -1,0 +1,27 @@
+for (let y in commentObject[x]) {
+            console.log('subhit');
+            let subAnchor = document.createElement("a");
+            subAnchor.setAttribute("href","javascript:;");
+            subAnchor.setAttribute("onclick","show(this)");
+            subAnchor.setAttribute("id", ('a-'+String(y)));
+            
+            let subCollapsible = document.createElement("div");
+            subCollapsible.innerHTML = y;
+            subCollapsible.setAttribute("class","collapsible");
+            subCollapsible.setAttribute("name", String("c-"+String(y)));
+            
+            let subcategory = document.createElement("div");
+            subcategory.setAttribute("class","Category");
+            subcategory.setAttribute("id",y);
+            for (let z in commentObject[x][y]) {
+                console.log(z);
+                console.log(commentObject[x][y][z]);
+                for (let rows in commentObject[x][y][z]) {
+                    console.log(consoleObject[x][y][z][rows]);
+                    console.log(rows);
+                    
+                    // commentObject[x][y][z][rows] is the lowest level value
+                }
+            }
+        }
+
