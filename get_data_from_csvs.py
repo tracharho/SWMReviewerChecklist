@@ -16,33 +16,37 @@ def categorize_csvs():
     
 
     data = []
+    dummy = {}
     j = 1
     l = [] #row list
     m = [] #subcat list
     n= [] #cat list
+    
     row_num = [] #row number list
-    #cat : categories, sub : subcategories
-    for cat, sub in catandsub.items():
+    #cat : categories which happen be the folders
+    #sub : list of subcategories
+    #print(catandsub.items())
+    for cat, sub in catandsub.items(): #looping through each folder is correct
+        #print(dummy)
         for file in sub: #for each .csv in the folder
-            # checks out - print(file)
+            b = {}
             filename= file.replace('.csv',"") #use new var as a subcat string
-            #data[cat] = {filename:{}} #initialize a deeper nested empty dict
-            path = os.getcwd() + "/static/csv/{}/{}".format(cat,file) #open the spcific file from teh static folder
+            path = os.getcwd() + "/static/csv/{}/{}".format(cat,file) #open the spcific file from teh static folder 
+            al = []
             with open(path, 'r') as f: 
                 csvReader = csv.DictReader(f)     
                 for row in csvReader:
-                    m.append(filename) 
-                    n.append(cat) 
-                    l.append(row)  
+                    a = {}
+                    for k, v in row.items():
+                        a[k] = v
+                    a["rownum"] = ("row"+str(j))
                     row_num.append("row"+str(j))
+                    al.append(a)
                     j += 1
-
-    for x in range(len(row_num)):
-        data.append({n[x]:{m[x] :  {"Row_number":row_num[x], "Problem":l[x]['Problem'], "Comment":l[x]['Comment'], "Reference":l[x]['Reference']}}})
-        
-
+                b[filename] = al
+        dummy[cat] = b
+    data = [dummy]
     jsonFilePath = os.getcwd()+"/static/checklist.json"
-
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
 
