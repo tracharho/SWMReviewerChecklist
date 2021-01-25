@@ -1,26 +1,50 @@
+
+
+/*
+cIndex: comment index used to find the associated comment
+rIndex: reference index used to find the associated comment
+*/
 document.getElementById('submit').onclick = function() {
-    var checkboxes = document.getElementsByName('cb');
-    for (var checkbox of checkboxes) {
+    let checkboxes = document.getElementsByName('checkbox');
+    let commentIDPrefix = "comment-";
+    let referenceIDPrefix = "reference-";
+    for (let checkbox of checkboxes) {
       if (checkbox.checked) {
-        let cIndex = "c"+String(checkbox.id);
-        let rIndex = "r"+String(checkbox.id);
-        let comment = document.getElementById(cIndex);
-        let reference = document.getElementById(rIndex);
-        checkbox.value = comment.value + " (" + reference.innerHTML + ".)";
+        let rowNumValue = checkbox.id;
+        let comment = document.getElementById(commentIDPrefix+rowNumValue);
+        let reference = document.getElementById(referenceIDPrefix+rowNumValue);
+        let letterComment = comment.value + " (" + reference.innerHTML + ".)";
+        console.log(letterComment);
         console.log(checkbox.value);
-  }}
+        checkbox.value = letterComment;
+      }
+    }
 };
 
-let coll = document.getElementsByClassName("collapsible");
-let i;
-
 function show(obj) {
-  let index = obj.id.slice(-1);
-  let row = document.getElementById("row"+index);
-  if(row.style.display === 'none') {
-    row.style.display = 'flex';
-  }
-  else {
-    row.style.display = 'none';
-  }
-}
+  let children = obj.children;
+  let l = children.length;
+  console.log(children[0].id)
+  let rows = document.getElementsByClassName("row"+children[0].id);
+  console.log(rows);
+  for (row of rows) {
+    console.log(row.style.display);
+    if (row.style.display === '') {
+      row.style.display = 'none';
+    }
+    else if (row.style.display === 'none') {
+      row.style.display = 'flex';
+    }
+    else {
+      row.style.display = 'none';
+    }
+  }  
+};
+    /*
+    if(child.style.display === 'none') {
+      child.style.display = 'flex';
+    }
+    else {
+      row.style.display = 'none';
+    }
+    */

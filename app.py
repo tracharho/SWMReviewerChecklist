@@ -14,16 +14,22 @@ get_data_from_csvs.categorize_csvs()
 def index():
     return render_template("index.html") 
 
+@app.route("/") #listen to get r`equests on slash
+def test():
+    return render_template("test.html")
+
 @app.route("/register", methods=["POST"])
 def register():
+    print('hit')
     if request.method == 'POST':        
-        comments = request.form.getlist('cb')
+        comments = request.form.getlist('checkbox')
+        print(comments)
         document = Make_Letter(comments)
         f = StringIO()
         document.save(f)
         length = f.tell()
         f.seek(0)
-        return send_file(f, as_attachment=True, attachment_filename='report.doc')
+        return send_file(f, as_attachment=True, attachment_filename='report.doc', register())
 
 #MAKE INTO ANOTHER FILE
 def Make_Letter(comments):

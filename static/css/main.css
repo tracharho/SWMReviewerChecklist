@@ -1,0 +1,23 @@
+
+/*Need to hit shift f5 to reset browser cache*/
+.row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+body {
+    background-color: aquamarine;
+}
+
+div[name="rowcontainer"] {
+    display: flex;
+}
+
+.subHeader {
+    font-size: 1.5rem;
+}
+
+.catHeader {
+    font-size: 2rem;
+}
