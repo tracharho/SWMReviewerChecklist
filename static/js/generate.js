@@ -12,6 +12,16 @@ fetch('static/checklist.json')
 //x = Category
 //y = Subcategory
 //z = row#
+
+//TODO
+//Make function to create html tags with 
+function setAttributes(el, attrs) {
+    for(var key in attrs) {
+      el.setAttribute(key, attrs[key]);
+    }
+  }
+
+
 function appendData(data) {
     var mainContainer = document.getElementById("myData");
     let cat = data[0];
@@ -19,9 +29,9 @@ function appendData(data) {
     for (let x in cat) {
         //checks out console.log(x);
         let catAnchor = document.createElement("a");
-        catAnchor.setAttribute("href","javascript:;");
-        catAnchor.setAttribute("onclick","show(this)");
-        catAnchor.setAttribute("id", ('a-'+String(x)));
+        setAttributes(catAnchor, {"href":"javascript",
+                            "onclick":"show(this)",
+                            "id":'a-)'+String(x)});
         
         let catCollapsible = document.createElement("div");
         catCollapsible.innerHTML = x;
@@ -51,6 +61,7 @@ function appendData(data) {
             subcategory.setAttribute("id",y);
 
             let rows = sub[y]
+            console.log(rows);
             for (let z in rows) {
                 
                 for (let row in rows) {

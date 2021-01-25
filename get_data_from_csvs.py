@@ -15,38 +15,36 @@ def categorize_csvs():
         catandsub[subcategories] = subcategory
     
 
-    data = {}
-    j = 0
-    l = []
-    m = []
-    n= []
-    row_num = []
+    data = []
+    j = 1
+    l = [] #row list
+    m = [] #subcat list
+    n= [] #cat list
+    row_num = [] #row number list
     #cat : categories, sub : subcategories
     for cat, sub in catandsub.items():
         for file in sub: #for each .csv in the folder
             # checks out - print(file)
             filename= file.replace('.csv',"") #use new var as a subcat string
-            data[cat] = {filename:{}} #initialize a deeper nested empty dict
+            #data[cat] = {filename:{}} #initialize a deeper nested empty dict
             path = os.getcwd() + "/static/csv/{}/{}".format(cat,file) #open the spcific file from teh static folder
             with open(path, 'r') as f: 
-                csvReader = csv.DictReader(f)  
-                
+                csvReader = csv.DictReader(f)     
                 for row in csvReader:
-                    m.append(filename)
+                    m.append(filename) 
                     n.append(cat) 
-                    l.append(row)        
-                    #data[cat][filename]["row"+str(j)] = row
-                    row_num.append(j)
+                    l.append(row)  
+                    row_num.append("row"+str(j))
                     j += 1
-    
+
     for x in range(len(row_num)):
-        print("{} :: {} :: {} :: {} :: {} :: {}".format(n[x], m[x], row_num[x], l[x]['Problem'], l[x]['Comment'], l[x]['Reference']))
-        print("___")
+        data.append({n[x]:{m[x] :  {"Row_number":row_num[x], "Problem":l[x]['Problem'], "Comment":l[x]['Comment'], "Reference":l[x]['Reference']}}})
+        
 
     jsonFilePath = os.getcwd()+"/static/checklist.json"
 
     with open(jsonFilePath, 'w') as jsonf:
-        jsonf.write("[" + json.dumps(data, indent=4) + "]")
+        jsonf.write(json.dumps(data, indent=4))
 
 if __name__ == "__main__":
     categorize_csvs()
