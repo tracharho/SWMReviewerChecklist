@@ -31,8 +31,10 @@ function appendData(data) {
         let catAnchor = document.createElement("a");
         setAttributes(catAnchor, {
                             "onclick":"show(this)",
-                            "id":'catAnchor'+String(catIDNumber),
+                            "id":String(catIDNumber),
+                            "name":String(x),
                             "class":"catAnchor"});
+        catAnchor.style.display = "flex";
         //"href": "function.js",
         let catCollapsible = document.createElement("div");
         setAttributes(catCollapsible, {"class":"collapsible",
@@ -63,6 +65,7 @@ function appendData(data) {
                 subCollapsibleHeader = document.createElement("h2")
                 subCollapsibleHeader.setAttribute("class","subHeader");
                 subCollapsibleHeader.innerHTML = y;
+                subCollapsible.style.display = "none";
                 subCollapsible.appendChild(subCollapsibleHeader);
     
                 subAnchor.appendChild(subCollapsible);
@@ -75,7 +78,8 @@ function appendData(data) {
                                 "class" : "rowsub"+String(subIDNumber),
                                 "name": "rowcontainer",
                                 "id":String("rowcontainer-"+ w['rownum'])});
-
+                    rowcontainer.style.display = "none";
+                    
                     let cb = document.createElement("INPUT");
                     setAttributes(cb, {"class":"cb",
                                 "name":"checkbox",
@@ -120,7 +124,7 @@ function appendData(data) {
                                 "onclick":"show(this)",
                                 "id":'subAnchor'+String(subIDNumber),
                                 "class":"subcategory-"+String(catIDNumber)});
-                //"href":"static/js/functions.js",
+
                 let subCollapsible = document.createElement("div");
                 setAttributes(subCollapsible, {"class":"collapsible",
                                     "name": "subcategory-"+String(x),
@@ -129,7 +133,8 @@ function appendData(data) {
                 subCollapsibleHeader.setAttribute("class","subHeader");
                 subCollapsibleHeader.innerHTML = y;
                 subCollapsible.appendChild(subCollapsibleHeader);
-    
+                subCollapsible.style.display = "none";
+
                 subAnchor.appendChild(subCollapsible);
                 mainContainer.append(subAnchor);
                 let rows = sub[y];
@@ -140,6 +145,7 @@ function appendData(data) {
                                 "class" : "rowsub"+String(subIDNumber),
                                 "name": "rowcontainer",
                                 "id":String("rowcontainer-"+ w['rownum'])});
+                    rowcontainer.style.display = "none";
 
                     let cb = document.createElement("INPUT");
                     setAttributes(cb, {"class":"cb",
