@@ -21,3 +21,7 @@ div[name="rowcontainer"] {
 .catHeader {
     font-size: 2rem;
 }
+
+.collapsible {
+    display: flex;
+}
