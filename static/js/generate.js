@@ -25,7 +25,7 @@ function appendData(data) {
     var mainContainer = document.getElementById("myData");
     let cat = data[0];
     let catIDNumber = 1;
-    let subIDNumber = 1;
+    let subIDNumber = 0;
     for (let x in cat) {
         //console.log(x); //category
         let catAnchor = document.createElement("a");
@@ -36,7 +36,7 @@ function appendData(data) {
         //"href": "function.js",
         let catCollapsible = document.createElement("div");
         setAttributes(catCollapsible, {"class":"collapsible",
-                            "name": "category-"+String(x),
+                            "name":String(x),
                             "id":'catCollapsible'+String(catIDNumber)});
 
         catCollapsibleHeader = document.createElement("h2");
@@ -46,67 +46,135 @@ function appendData(data) {
 
         catAnchor.appendChild(catCollapsible);
         mainContainer.append(catAnchor);
-        let sub = cat[x];
-        for (let y in sub) {
-            let subAnchor = document.createElement("a");
-            setAttributes(subAnchor, {
-                            "onclick":"show(this)",
-                            "id":'subAnchor'+String(subIDNumber),
-                            "class":"subAnchor"});
-            //"href":"static/js/functions.js",
-            let subCollapsible = document.createElement("div");
-            setAttributes(subCollapsible, {"class":"collapsible",
-                                "name": "subcategory-"+String(x),
-                                "id":'sub'+String(catIDNumber)});
-            subCollapsibleHeader = document.createElement("h2")
-            subCollapsibleHeader.setAttribute("class","subHeader");
-            subCollapsibleHeader.innerHTML = y;
-            subCollapsible.appendChild(subCollapsibleHeader);
+        if (cat[x].length === 1) {
+            let sub = cat[x][0];
+            for (let y in sub) {
+                subIDNumber++;
+                let subAnchor = document.createElement("a");
+                setAttributes(subAnchor, {
+                                "onclick":"show(this)",
+                                "id":'subAnchor',
+                                "class":"subAnchor"});
+                //"href":"static/js/functions.js",
+                let subCollapsible = document.createElement("div");
+                setAttributes(subCollapsible, {"class":"collapsible",
+                                    "name": "subcategory-"+String(x),
+                                    "id":'sub'+String(subIDNumber)});
+                subCollapsibleHeader = document.createElement("h2")
+                subCollapsibleHeader.setAttribute("class","subHeader");
+                subCollapsibleHeader.innerHTML = y;
+                subCollapsible.appendChild(subCollapsibleHeader);
+    
+                subAnchor.appendChild(subCollapsible);
+                mainContainer.append(subAnchor);
+                let rows = sub[y];
+                for (let z = 0; z < rows.length; z++) {
+                    let w = rows[z];
+                    let rowcontainer = document.createElement("div");
+                    setAttributes(rowcontainer, {"class":"row",
+                                "class" : "rowsub"+String(subIDNumber),
+                                "name": "rowcontainer",
+                                "id":String("rowcontainer-"+ w['rownum'])});
 
-            subAnchor.appendChild(subCollapsible);
-            mainContainer.append(subAnchor);
-            let rows = sub[y];
-            for (let z = 0; z < rows.length; z++) {
-                let w = rows[z];
-                let rowcontainer = document.createElement("div");
-                setAttributes(rowcontainer, {"class":"row",
-                            "class" : "rowsub"+String(subIDNumber),
-                            "name": "rowcontainer",
-                            "id":String("rowcontainer-"+ w['rownum'])});
+                    let cb = document.createElement("INPUT");
+                    setAttributes(cb, {"class":"cb",
+                                "name":"checkbox",
+                                "type":"checkbox",
+                                "id": String(w['rownum'])});
+                    
+                    let criteria = document.createElement("p");
+                    setAttributes(criteria, {"class":"criteria",
+                                "name":"criteria",
+                                "id": "criteria-"+w['rownum']});
+                    criteria.innerHTML = w['Problem'];
 
-                let cb = document.createElement("INPUT");
-                setAttributes(cb, {"class":"cb",
-                            "name":"checkbox",
-                            "type":"checkbox",
-                            "id": String(w['rownum'])});
-                
-                let criteria = document.createElement("p");
-                setAttributes(criteria, {"class":"criteria",
-                            "name":"criteria",
-                            "id": "criteria-"+w['rownum']});
-                criteria.innerHTML = w['Problem'];
+                    let comment = document.createElement("textarea");
+                    setAttributes(comment, {"class":"comment",
+                                "name":"comment",
+                                "id": "comment-"+w['rownum']});
+                    comment.innerHTML = w['Comment'];
+                    
+                    let reference = document.createElement("p");
+                    setAttributes(reference, {"class":"reference",
+                                "name":"reference",
+                                "id": "reference-"+w['rownum']});
+                    reference.innerHTML = w['Reference'];
 
-                let comment = document.createElement("textarea");
-                setAttributes(comment, {"class":"comment",
-                            "name":"comment",
-                            "id": "comment-"+w['rownum']});
-                comment.innerHTML = w['Comment'];
-                
-                let reference = document.createElement("p");
-                setAttributes(reference, {"class":"reference",
-                            "name":"reference",
-                            "id": "reference-"+w['rownum']});
-                reference.innerHTML = w['Reference'];
-
-                rowcontainer.appendChild(cb);
-                rowcontainer.appendChild(criteria);
-                rowcontainer.appendChild(comment);
-                rowcontainer.appendChild(reference);
-                mainContainer.appendChild(rowcontainer);
+                    rowcontainer.appendChild(cb);
+                    rowcontainer.appendChild(criteria);
+                    rowcontainer.appendChild(comment);
+                    rowcontainer.appendChild(reference);
+                    mainContainer.appendChild(rowcontainer);
+                }
                 
             }
-            subIDNumber++;
+                
         }
-    catIDNumber++;    
+        else {
+            for (let a = 0; a < cat[x].length; a++) {
+                let sub = cat[x][a];
+            for (let y in sub) {
+                subIDNumber++;
+                let subAnchor = document.createElement("a");
+                setAttributes(subAnchor, {
+                                "onclick":"show(this)",
+                                "id":'subAnchor'+String(subIDNumber),
+                                "class":"subcategory-"+String(catIDNumber)});
+                //"href":"static/js/functions.js",
+                let subCollapsible = document.createElement("div");
+                setAttributes(subCollapsible, {"class":"collapsible",
+                                    "name": "subcategory-"+String(x),
+                                    "id":'sub'+String(subIDNumber)});
+                subCollapsibleHeader = document.createElement("h2")
+                subCollapsibleHeader.setAttribute("class","subHeader");
+                subCollapsibleHeader.innerHTML = y;
+                subCollapsible.appendChild(subCollapsibleHeader);
+    
+                subAnchor.appendChild(subCollapsible);
+                mainContainer.append(subAnchor);
+                let rows = sub[y];
+                for (let z = 0; z < rows.length; z++) {
+                    let w = rows[z];
+                    let rowcontainer = document.createElement("div");
+                    setAttributes(rowcontainer, {"class":"row",
+                                "class" : "rowsub"+String(subIDNumber),
+                                "name": "rowcontainer",
+                                "id":String("rowcontainer-"+ w['rownum'])});
+
+                    let cb = document.createElement("INPUT");
+                    setAttributes(cb, {"class":"cb",
+                                "name":"checkbox",
+                                "type":"checkbox",
+                                "id": String(w['rownum'])});
+                    
+                    let criteria = document.createElement("p");
+                    setAttributes(criteria, {"class":"criteria",
+                                "name":"criteria",
+                                "id": "criteria-"+w['rownum']});
+                    criteria.innerHTML = w['Problem'];
+
+                    let comment = document.createElement("textarea");
+                    setAttributes(comment, {"class":"comment",
+                                "name":"comment",
+                                "id": "comment-"+w['rownum']});
+                    comment.innerHTML = w['Comment'];
+                    
+                    let reference = document.createElement("p");
+                    setAttributes(reference, {"class":"reference",
+                                "name":"reference",
+                                "id": "reference-"+w['rownum']});
+                    reference.innerHTML = w['Reference'];
+
+                    rowcontainer.appendChild(cb);
+                    rowcontainer.appendChild(criteria);
+                    rowcontainer.appendChild(comment);
+                    rowcontainer.appendChild(reference);
+                    mainContainer.appendChild(rowcontainer);
+                    }
+                } 
+            }
+        
+        }
     }
+    catIDNumber++;    
 };

@@ -2,7 +2,7 @@
 /*Need to hit shift f5 to reset browser cache*/
 .row {
     display: flex;
-    align-items: baseline;
+    align-items:flex-start;
     gap: 10px;
 }
 

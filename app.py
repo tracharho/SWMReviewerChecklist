@@ -29,7 +29,7 @@ def register():
         document.save(f)
         length = f.tell()
         f.seek(0)
-        return send_file(f, as_attachment=True, attachment_filename='report.doc', register())
+        return send_file(f, as_attachment=True, attachment_filename='report.doc')
 
 #MAKE INTO ANOTHER FILE
 def Make_Letter(comments):

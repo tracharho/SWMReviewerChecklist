@@ -28,6 +28,7 @@ def categorize_csvs():
     #print(catandsub.items())
     for cat, sub in catandsub.items(): #looping through each folder is correct
         #print(dummy)
+        c = []
         for file in sub: #for each .csv in the folder
             b = {}
             filename= file.replace('.csv',"") #use new var as a subcat string
@@ -44,12 +45,19 @@ def categorize_csvs():
                     al.append(a)
                     j += 1
                 b[filename] = al
-        dummy[cat] = b
+                print('----')
+                print(b)
+                print('----')
+            c.append(b)
+        dummy[cat] = c
+        print('***')
+        print(dummy[cat])
+        print('***')
     data = [dummy]
     jsonFilePath = os.getcwd()+"/static/checklist.json"
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
-
+    print(data)
 if __name__ == "__main__":
     categorize_csvs()
     

@@ -1,52 +1,74 @@
 [
     {
-        "Erosion and Sediment Control": {
-            "Silt Fence": [
-                {
-                    "Comment": "Provide Silt Fence", 
-                    "Problem": "No Silt Fence", 
-                    "rownum": "row1", 
-                    "Reference": "VESCH 7.12"
-                }, 
-                {
-                    "Comment": "Provide the silt fence detail", 
-                    "Problem": "Missing Detail", 
-                    "rownum": "row2", 
-                    "Reference": "VESCH 8.9"
-                }
-            ]
-        }, 
-        "Stormwater": {
-            "Stormwater - General Requirements": [
-                {
-                    "Comment": "Provide a Stormwater Management Narrative with the following information, but not be limited to: Description of existing site conditions; Pre-development and post-development drainage conditions and patterns; Disturbed area; Proposed impervious area; Soil characteristics; Description of proposed development; Description of proposed stormwater management facilities; Special circumstances and assumptions; Summary of flow results and how the stormwater management design meets water quality and water quantity (channel and flood protection) requirements in accordance with the City Stormwater Management Ordinance", 
-                    "Problem": "Missing Stormwater Narrative", 
-                    "rownum": "row5", 
-                    "Reference": "(City Code, Appendix D, Sec. 1-6.)"
-                }, 
-                {
-                    "Comment": "Provide the predeveloped and post developed drainage area maps to the plans", 
-                    "Problem": "No drainage area maps", 
-                    "rownum": "row6", 
-                    "Reference": "City Code, Appendix D, Sec. 1-6.)("
-                }
-            ]
-        }, 
-        "General": {
-            "Site Plan - General Requirements": [
-                {
-                    "Comment": "Provide a title to the site plan. ", 
-                    "Problem": "The title is missing on the site plans.", 
-                    "rownum": "row7", 
-                    "Reference": "Guide to Commercial Site Plan Development"
-                }, 
-                {
-                    "Comment": "Please correct the scale, it does not match the site plan. ", 
-                    "Problem": "There is an incorrect or missing scale", 
-                    "rownum": "row8", 
-                    "Reference": "Guide to Commercial Site Plan Development"
-                }
-            ]
-        }
+        "Erosion and Sediment Control": [
+            {
+                "Silt Fence": [
+                    {
+                        "Comment": "Provide Silt Fence", 
+                        "Problem": "No Silt Fence", 
+                        "rownum": "row1", 
+                        "Reference": "VESCH 7.12"
+                    }, 
+                    {
+                        "Comment": "Provide the silt fence detail", 
+                        "Problem": "Missing Detail", 
+                        "rownum": "row2", 
+                        "Reference": "VESCH 8.9"
+                    }
+                ]
+            }
+        ], 
+        "Stormwater": [
+            {
+                "Permeable Pavement": [
+                    {
+                        "Comment": "The system is showing that there is less than 2' in separation between the bottom of facility and the SHGWT. Revise the desing to provide the separation. ", 
+                        "Problem": "Less than 2' between bottom of system and SHGWT.", 
+                        "rownum": "row3", 
+                        "Reference": "(DEQ Spec. No. 7.)"
+                    }, 
+                    {
+                        "Comment": "The shown permeable pavement system is setback less than 5' from the adjacent building. Relocate the system away from the building to meet the required setback. ", 
+                        "Problem": "Less than 5' downstream setback from building. ", 
+                        "rownum": "row4", 
+                        "Reference": "(DEQ Spec. No. 7. Table 7.4)"
+                    }
+                ]
+            }, 
+            {
+                "Stormwater - General Requirements": [
+                    {
+                        "Comment": "Provide a Stormwater Management Narrative with the following information, but not be limited to: Description of existing site conditions; Pre-development and post-development drainage conditions and patterns; Disturbed area; Proposed impervious area; Soil characteristics; Description of proposed development; Description of proposed stormwater management facilities; Special circumstances and assumptions; Summary of flow results and how the stormwater management design meets water quality and water quantity (channel and flood protection) requirements in accordance with the City Stormwater Management Ordinance", 
+                        "Problem": "Missing Stormwater Narrative", 
+                        "rownum": "row5", 
+                        "Reference": "(City Code, Appendix D, Sec. 1-6.)"
+                    }, 
+                    {
+                        "Comment": "Provide the predeveloped and post developed drainage area maps to the plans", 
+                        "Problem": "No drainage area maps", 
+                        "rownum": "row6", 
+                        "Reference": "City Code, Appendix D, Sec. 1-6.)("
+                    }
+                ]
+            }
+        ], 
+        "General": [
+            {
+                "Site Plan - General Requirements": [
+                    {
+                        "Comment": "Provide a title to the site plan. ", 
+                        "Problem": "The title is missing on the site plans.", 
+                        "rownum": "row7", 
+                        "Reference": "Guide to Commercial Site Plan Development"
+                    }, 
+                    {
+                        "Comment": "Please correct the scale, it does not match the site plan. ", 
+                        "Problem": "There is an incorrect or missing scale", 
+                        "rownum": "row8", 
+                        "Reference": "Guide to Commercial Site Plan Development"
+                    }
+                ]
+            }
+        ]
     }
 ]

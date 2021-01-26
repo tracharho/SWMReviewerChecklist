@@ -22,11 +22,10 @@ document.getElementById('submit').onclick = function() {
 };
 
 function show(obj) {
+  console.log(obj.attributes.class);
   let children = obj.children;
   let l = children.length;
-  console.log(children[0].id)
   let rows = document.getElementsByClassName("row"+children[0].id);
-  console.log(rows);
   for (row of rows) {
     console.log(row.style.display);
     if (row.style.display === '') {
@@ -40,11 +39,3 @@ function show(obj) {
     }
   }  
 };
-    /*
-    if(child.style.display === 'none') {
-      child.style.display = 'flex';
-    }
-    else {
-      row.style.display = 'none';
-    }
-    */
