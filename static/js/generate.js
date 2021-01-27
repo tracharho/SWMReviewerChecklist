@@ -37,7 +37,7 @@ function appendData(data) {
         catAnchor.style.display = "flex";
         //"href": "function.js",
         let catCollapsible = document.createElement("div");
-        setAttributes(catCollapsible, {"class":"collapsible",
+        setAttributes(catCollapsible, {"class":"catCollapsible",
                             "name":String(x),
                             "id":'catCollapsible'+String(catIDNumber)});
 
@@ -55,11 +55,11 @@ function appendData(data) {
                 let subAnchor = document.createElement("a");
                 setAttributes(subAnchor, {
                                 "onclick":"show(this)",
-                                "id":'subAnchor',
+                                "id":'subcategory-'+String(subIDNumber),
                                 "class":"subAnchor"});
                 //"href":"static/js/functions.js",
                 let subCollapsible = document.createElement("div");
-                setAttributes(subCollapsible, {"class":"collapsible",
+                setAttributes(subCollapsible, {"class":"subCollapsible",
                                     "name": "subcategory-"+String(x),
                                     "id":'sub'+String(subIDNumber)});
                 subCollapsibleHeader = document.createElement("h2")
@@ -75,8 +75,8 @@ function appendData(data) {
                     let w = rows[z];
                     let rowcontainer = document.createElement("div");
                     setAttributes(rowcontainer, {"class":"row",
-                                "class" : "rowsub"+String(subIDNumber),
-                                "name": "rowcontainer",
+                                "name" : "rowsub"+String(subIDNumber),
+                                "class": "rowcontainer",
                                 "id":String("rowcontainer-"+ w['rownum'])});
                     rowcontainer.style.display = "none";
                     
@@ -92,10 +92,11 @@ function appendData(data) {
                                 "id": "criteria-"+w['rownum']});
                     criteria.innerHTML = w['Problem'];
 
-                    let comment = document.createElement("textarea");
+                    let comment = document.createElement("div");
                     setAttributes(comment, {"class":"comment",
                                 "name":"comment",
                                 "id": "comment-"+w['rownum']});
+                    comment.contentEditable = "true";
                     comment.innerHTML = w['Comment'];
                     
                     let reference = document.createElement("p");
@@ -124,9 +125,9 @@ function appendData(data) {
                                 "onclick":"show(this)",
                                 "id":'subAnchor'+String(subIDNumber),
                                 "class":"subcategory-"+String(catIDNumber)});
-
+    
                 let subCollapsible = document.createElement("div");
-                setAttributes(subCollapsible, {"class":"collapsible",
+                setAttributes(subCollapsible, {"class":"subCollapsible",
                                     "name": "subcategory-"+String(x),
                                     "id":'sub'+String(subIDNumber)});
                 subCollapsibleHeader = document.createElement("h2")
@@ -142,8 +143,8 @@ function appendData(data) {
                     let w = rows[z];
                     let rowcontainer = document.createElement("div");
                     setAttributes(rowcontainer, {"class":"row",
-                                "class" : "rowsub"+String(subIDNumber),
-                                "name": "rowcontainer",
+                                "name" : "rowsub"+String(subIDNumber),
+                                "class": "rowcontainer",
                                 "id":String("rowcontainer-"+ w['rownum'])});
                     rowcontainer.style.display = "none";
 
@@ -159,10 +160,11 @@ function appendData(data) {
                                 "id": "criteria-"+w['rownum']});
                     criteria.innerHTML = w['Problem'];
 
-                    let comment = document.createElement("textarea");
+                    let comment = document.createElement("div");
                     setAttributes(comment, {"class":"comment",
                                 "name":"comment",
                                 "id": "comment-"+w['rownum']});
+                    comment.contentEditable = "true";
                     comment.innerHTML = w['Comment'];
                     
                     let reference = document.createElement("p");

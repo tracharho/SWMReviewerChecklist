@@ -7,6 +7,9 @@ from datetime import datetime
 
 
 app = Flask(__name__, static_folder='static') #turn this file into a web application
+app.config['ENV'] = 'development'
+app.config['DEBUG'] = True
+app.config['TESTING'] = True
 
 get_data_from_csvs.categorize_csvs()
 
@@ -20,7 +23,6 @@ def test():
 
 @app.route("/register", methods=["POST"])
 def register():
-    print('hit')
     if request.method == 'POST':        
         comments = request.form.getlist('checkbox')
         print(comments)

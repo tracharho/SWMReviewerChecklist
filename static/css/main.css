@@ -1,14 +1,84 @@
 
 /*Need to hit shift f5 to reset browser cache*/
+
+html, body {
+    display: flex;
+    justify-content: center;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 15px;
+    background: #f4f4f4;
+	color: #333;
+	line-height: 1.6;
+    }
+    form {
+    border: 5px solid #f1f1f1;
+    width: 100%;
+    }
+    input[type=text], input[type=password] {
+    width: 50%;
+    padding: 16px 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    }
+    #submit {
+    background-color: #8ebf42;
+    color: white;
+    padding: 14px 0;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+
+    }
+    
+    h1 {
+    text-align:start;
+    font-size:30px;
+    }
+    button:hover {
+    opacity: 0.8;
+    }
+    .formcontainer {
+    text-align: left;
+    margin: 24px 50px 12px;
+    }
+    .container {
+    padding: 16px 0;
+    text-align:left;
+    }
+    span.psw {
+    float: right;
+    padding-top: 0;
+    padding-right: 15px;
+    }
+    /* Change styles for span on extra small screens */
+    @media screen and (max-width: 300px) {
+    span.psw {
+    display: block;
+    float: none;
+        }
+    }
+
+form {
+    background-color: #e4e2e2c2;
+    padding: 10px;
+    width: 100%;
+}
+
+.container {
+    background-color: rgb(238, 133, 133);
+    display: flex;
+}
+
 .row {
     display: flex;
     align-items:flex-start;
     gap: 10px;
 }
 
-body {
-    background-color: aquamarine;
-}
 
 div[name="rowcontainer"] {
     display: flex;
@@ -18,10 +88,98 @@ div[name="rowcontainer"] {
     font-size: 1.5rem;
 }
 
-.catHeader {
-    font-size: 2rem;
+
+.pagetitle {
+    align-self: flex-start;
 }
 
-.collapsible {
+.catCollapsible {
+    background-color: #4c82e1fc;
+    color: #444;
+    cursor: pointer;
+    overflow:hidden;
+    margin: 2px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    border-radius: 5px;
+    border-style: none;
+    height: 4rem;
     display: flex;
+    align-content: flex-start;
+}
+
+.catHeader {
+    font-size: 20px;
+    height: 100%;
+    margin-left: 23px;
+    color: white;
+}
+
+.subCollapsible {
+    background-color: #81adf8fc;
+    color: #444;
+    cursor: pointer;
+    overflow:hidden;
+    margin: 2px;
+    width: 80%;
+    border: none;
+    text-align: left;
+    outline: none;
+    border-radius: 2.5px;
+    height: 4rem;
+    margin-left: 40px;
+}
+
+.subHeader {
+    font-size: 20px;
+    height: 100%;
+    margin-left: 20px;
+    color: white;
+}
+
+a {
+    width: 100%;
+}
+
+.rowcontainer {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding:5px;
+    margin:5px;
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: 40px;
+    align-items:baseline;
+    align-content: center;
+    justify-content:space-around;
+}
+
+.cb {
+flex-grow:1;
+align-self: baseline;
+}
+
+.criteria {
+    flex-grow:1;
+    word-break:normal;
+    width:120px;
+    word-wrap: break-word;
+    padding:3px;
+}
+
+.comment {
+    flex-grow: 5;
+    width:300px;
+    height:auto;
+    word-wrap: break-word;
+    padding:3px;
+}
+
+.reference {
+    flex-grow:1;
+    word-wrap: break-word;
+    width:80px;
+    font-size: 0.8rem;
 }

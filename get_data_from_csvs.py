@@ -45,19 +45,12 @@ def categorize_csvs():
                     al.append(a)
                     j += 1
                 b[filename] = al
-                print('----')
-                print(b)
-                print('----')
             c.append(b)
         dummy[cat] = c
-        print('***')
-        print(dummy[cat])
-        print('***')
     data = [dummy]
     jsonFilePath = os.getcwd()+"/static/checklist.json"
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
-    print(data)
 if __name__ == "__main__":
     categorize_csvs()
     
