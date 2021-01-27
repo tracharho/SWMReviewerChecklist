@@ -4,16 +4,16 @@
             {
                 "Silt Fence": [
                     {
-                        "Comment": "Provide Silt Fence", 
-                        "Problem": "No Silt Fence", 
+                        "Comment": "Provide silt fence around the extents of disturbance.", 
                         "rownum": "row1", 
-                        "Reference": "VESCH 7.12"
+                        "Reference": "(VESCH 7.12)", 
+                        "Criteria": "Silt fence must be provided around the extends of construction and/or disturbance."
                     }, 
                     {
-                        "Comment": "Provide the silt fence detail", 
-                        "Problem": "Missing Detail", 
+                        "Comment": "Provide the silt fence detail, it is missing from the plans. ", 
                         "rownum": "row2", 
-                        "Reference": "VESCH 8.9"
+                        "Reference": "(VESCH 8.9)", 
+                        "Criteria": "The silt fence detail must be provided on the plans."
                     }
                 ]
             }
@@ -23,15 +23,15 @@
                 "Permeable Pavement": [
                     {
                         "Comment": "The system is showing that there is less than 2' in separation between the bottom of facility and the SHGWT. Revise the desing to provide the separation. ", 
-                        "Problem": "Less than 2' between bottom of system and SHGWT.", 
                         "rownum": "row3", 
-                        "Reference": "(DEQ Spec. No. 7.)"
+                        "Reference": "(DEQ Spec. No. 7.)", 
+                        "Criteria": "A 2\u2019 separation must be established between the bottom layer of the permeable pavement and the seasonal high ground water table (SHGWT.)"
                     }, 
                     {
                         "Comment": "The shown permeable pavement system is setback less than 5' from the adjacent building. Relocate the system away from the building to meet the required setback. ", 
-                        "Problem": "Less than 5' downstream setback from building. ", 
                         "rownum": "row4", 
-                        "Reference": "(DEQ Spec. No. 7. Table 7.4)"
+                        "Reference": "(DEQ Spec. No. 7. Table 7.4)", 
+                        "Criteria": "A 5\u2019 setback must be provided between the facility and any building. "
                     }
                 ]
             }, 
@@ -39,15 +39,15 @@
                 "Stormwater - General Requirements": [
                     {
                         "Comment": "Provide a Stormwater Management Narrative with the following information, but not be limited to: Description of existing site conditions; Pre-development and post-development drainage conditions and patterns; Disturbed area; Proposed impervious area; Soil characteristics; Description of proposed development; Description of proposed stormwater management facilities; Special circumstances and assumptions; Summary of flow results and how the stormwater management design meets water quality and water quantity (channel and flood protection) requirements in accordance with the City Stormwater Management Ordinance", 
-                        "Problem": "Missing Stormwater Narrative", 
                         "rownum": "row5", 
-                        "Reference": "(City Code, Appendix D, Sec. 1-6.)"
+                        "Reference": "(City Code, Appendix D, Sec. 1-6.)", 
+                        "Criteria": "A stormwater management narrative must be included for every stormwater management plan. "
                     }, 
                     {
                         "Comment": "Provide the predeveloped and post developed drainage area maps to the plans", 
-                        "Problem": "No drainage area maps", 
                         "rownum": "row6", 
-                        "Reference": "City Code, Appendix D, Sec. 1-6.)("
+                        "Reference": "(City Code, Appendix D, Sec. 1-6.)", 
+                        "Criteria": "Drainage area maps must be provided that correctly reflect the drainage characteristics of the predeveloped and post-developed conditions"
                     }
                 ]
             }
@@ -57,15 +57,15 @@
                 "Site Plan - General Requirements": [
                     {
                         "Comment": "Provide a title to the site plan. ", 
-                        "Problem": "The title is missing on the site plans.", 
                         "rownum": "row7", 
-                        "Reference": "Guide to Commercial Site Plan Development"
+                        "Reference": "Guide to Commercial Site Plan Development", 
+                        "Criteria": "The site plan should have a title."
                     }, 
                     {
                         "Comment": "Please correct the scale, it does not match the site plan. ", 
-                        "Problem": "There is an incorrect or missing scale", 
                         "rownum": "row8", 
-                        "Reference": "Guide to Commercial Site Plan Development"
+                        "Reference": "Guide to Commercial Site Plan Development", 
+                        "Criteria": "All layout sheets must have a scale."
                     }
                 ]
             }

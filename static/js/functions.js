@@ -16,7 +16,7 @@ document.getElementById('submit').onclick = function() {
         let rowNumValue = checkbox.id;
         let comment = document.getElementById(commentIDPrefix+rowNumValue);
         let reference = document.getElementById(referenceIDPrefix+rowNumValue);
-        let letterComment = comment.value + " (" + reference.innerHTML + ".)";
+        let letterComment = comment.innerHTML + " (" + reference.innerHTML + ".)";
         checkbox.value = letterComment;
       }
     }

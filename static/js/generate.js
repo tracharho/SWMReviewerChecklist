@@ -90,7 +90,7 @@ function appendData(data) {
                     setAttributes(criteria, {"class":"criteria",
                                 "name":"criteria",
                                 "id": "criteria-"+w['rownum']});
-                    criteria.innerHTML = w['Problem'];
+                    criteria.innerHTML = w['Criteria'];
 
                     let comment = document.createElement("div");
                     setAttributes(comment, {"class":"comment",
@@ -158,7 +158,7 @@ function appendData(data) {
                     setAttributes(criteria, {"class":"criteria",
                                 "name":"criteria",
                                 "id": "criteria-"+w['rownum']});
-                    criteria.innerHTML = w['Problem'];
+                    criteria.innerHTML = w['Criteria'];
 
                     let comment = document.createElement("div");
                     setAttributes(comment, {"class":"comment",

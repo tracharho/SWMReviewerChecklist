@@ -1,7 +1,7 @@
 import os, json, csv
 
     
-def categorize_csvs():
+def categorizeCsvs():
     csvdir = os.path.abspath(os.getcwd()+ '/static/csv')
     folder = []
     for i in os.walk(csvdir,topdown=True):
@@ -52,5 +52,5 @@ def categorize_csvs():
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
 if __name__ == "__main__":
-    categorize_csvs()
+    categorizeCsvs()
     

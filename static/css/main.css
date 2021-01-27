@@ -31,6 +31,7 @@ html, body {
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+    font-size: 20px;
 
     }
     
@@ -146,39 +147,47 @@ a {
 .rowcontainer {
     border-bottom-style: solid;
     border-bottom-width: 1px;
+    width: 700px;
     padding:5px;
     margin:5px;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     margin-left: 40px;
     align-items:baseline;
     align-content: center;
     justify-content:space-around;
+    height: auto;
 }
 
 .cb {
-flex-grow:1;
+width: 20px;
 align-self: baseline;
+
 }
 
 .criteria {
-    flex-grow:1;
+    flex: 2;
     word-break:normal;
-    width:120px;
     word-wrap: break-word;
     padding:3px;
+    margin: 5px;
+    padding: 3px;
 }
 
 .comment {
-    flex-grow: 5;
-    width:300px;
-    height:auto;
+    flex: 5;
     word-wrap: break-word;
-    padding:3px;
+    border-style: ridge;
+    border-width: 1px;
+    overflow: auto;
+    margin: 5px;
+    padding: 3px;
+    align-self: baseline;
+    background-color: white;
+    height: 150px;
 }
 
 .reference {
-    flex-grow:1;
     word-wrap: break-word;
     width:80px;
     font-size: 0.8rem;
