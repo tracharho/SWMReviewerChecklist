@@ -32,7 +32,9 @@ def makeLetter(reviewername, recipientname, projectname, dscnumber, comments):
     font.size = Pt(11)
     for para in doc.paragraphs:
         para.style = doc.styles['Normal']
-    return doc
-
-if __name__ == "__main__":
-    makeLetter()
+    
+    letter_name = "Review Comments for DSC# {} {}.docx".format(dscnumber,projectname)
+    str(os.path.abspath(os.getcwd()))
+    letter_path = str(os.path.abspath(os.getcwd()))+ '/static/letters/' + letter_name
+    doc.save(letter_path)
+    return letter_path, letter_name

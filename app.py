@@ -1,15 +1,19 @@
 from flask import Flask, render_template, request, redirect, send_file
-import smtplib, os, get_data_from_csvs
-from cStringIO import StringIO
-from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+import smtplib, os, get_data_from_csvs, io
 from makeletter import makeLetter
-
-
+from docx import Document
+from docx.shared import Inches, Pt
 
 app = Flask(__name__, static_folder='static') #turn this file into a web application
 app.config['ENV'] = 'development'
 app.config['DEBUG'] = True
 app.config['TESTING'] = True
+
+###ADD SECRET KEY###
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
+db = SQLAlchemy(app)
 
 get_data_from_csvs.categorizeCsvs()
 
@@ -29,18 +33,17 @@ def register():
         recipientname = request.form.get('recipient')
         projectname = request.form.get('projectname')
         dscnumber = request.form.get('dscnumber')
-        document = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
-        f = StringIO()
-        document.save(f)
-        length = f.tell()
-        f.seek(0)
-        return send_file(f, as_attachment=True, attachment_filename='report.doc')
-
+        letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
+        try:
+            return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
+        except Exception as e:
+            print ("IDK WHAT HAPPENED BOSS")
 
 """Remember to go to terminal and do
 $ export FLASK_APP=application
 $ flask run
 to start the webserver"""
+#DEbug mode export FLASK_ENV=development
 
 #Use serverside to check for logic and prevent malicious use. 
 #Javascript can be disabled from the frontend
