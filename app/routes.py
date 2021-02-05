@@ -1,21 +1,35 @@
 from flask import Flask, render_template, request, redirect, send_file, flash, url_for
-from app import app
-from app.forms import LoginForm
+from app import app, db
+from app.forms import LoginForm, RegistrationForm
+from app.models import User
+from werkzeug.urls import url_parse
+from flask_login import current_user, login_user, logout_user, login_required
 from app.makeletter import makeLetter
 from flask_sqlalchemy import SQLAlchemy
 
 
-@app.route("/") #listen to get r`equests on slash
+@app.route("/") 
+@app.route("/landing")
+def landing():
+    return render_template('landing.html')
+
+ 
+ #listen to get requests on slash
 @app.route("/index")
+@login_required
 def index():
-    return render_template('index.html') 
+    if current_user.is_authenticated:
+        return render_template('index.html', title='HOME PAGE TITLE') 
+    return render_template('index.html', title='HOME PAGE TITLE') 
 
-@app.route("/") #listen to get r`equests on slash
-def test():
-    return render_template("test.html")
+@app.route("/projectlist", methods=['GET','POST'])
+@login_required
+def projectlist():
+    return render_template('index.html', title='PROJECT LIST') 
 
-@app.route("/register", methods=["POST"])
-def register():
+
+@app.route("/checklist", methods=["POST"])
+def checklist():
     if request.method == 'POST':        
         comments = request.form.getlist('checkbox')
         reviewername = request.form.get('reviewer-name')
@@ -27,3 +41,45 @@ def register():
             return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
         except Exception as e:
             print ("IDK WHAT HAPPENED BOSS")
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    #in the case that the user is already logged in but finds the login page again.
+    if current_user.is_authenticated:
+        return redirect(url_for('landing'))
+    form = LoginForm()
+    #if all the required fields are filled out, execute this block of code
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            #flash shows a message to the user
+            flash('Username or Password not recognized.'.format(form.username.data, form.remember_me.data))
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '': 
+            next_page = url_for('projectlist')
+        return redirect(next_page)   
+    return render_template('login.html',title='Sign In', form=form)
+
+@app.route('/register',methods=['GET','POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data,email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have successfully logged out!')
+    return redirect(url_for('landing'))
+    

@@ -10,12 +10,13 @@ app.config['ENV'] = 'development'
 app.config['DEBUG'] = True
 app.config['TESTING'] = True
 
+
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 login = LoginManager(app)
+login.login_view = 'login' #requires user to be logged in to view certain pages
 
-db = SQLAlchemy(app)
 
 get_data_from_csvs.categorizeCsvs()
 

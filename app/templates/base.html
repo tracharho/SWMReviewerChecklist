@@ -1,0 +1,29 @@
+<html>
+    <head>
+        {% if title %}
+        <title>SWRMC - {{ title }}</title>
+        {% else %}
+        <title>SWMRC</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>SWMRC
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('projectlist') }}">Project List</a> <!--use url_for('xxx') instead of "/xxx"--> 
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('landing') }}">Home</a> <!--use url_for('xxx') instead of "/xxx"--> 
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            <li>{{ messages[-1] }}</li>
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

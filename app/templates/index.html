@@ -1,20 +1,6 @@
-{% extends 'template.html' %}
-{% block content %}
-<form action="/register" method="POST">
-  <label for="reviewer-name"></label>
-    <input class="textinput" type="text" name="reviewer-name" id = "reviewer-name" placeholder="Reviewer Name" required>
-    <label for="recipient"></label>
-    <input class="textinput" type="text" name="recipient" id = "recipient" placeholder="Recipient Name" required>
-    <label for="projectname"></label>
-    <input class="textinput" type="text" name="projectname" id = "projectname" placeholder="Project Name" required>
-    <label for="dscnumber"></label>
-    <input class="textinput" type="text" name="dscnumber" id = "dscnumber" placeholder="DSC Number" required>
+{% extends "base.html" %}
 
-  <div id="myData"></div>
-  <input type="submit" value="Submit" id="submit">
-  <script type="text/javascript" src="static/js/functions.js"></script>
-  <script type="text/javascript" src="static/js/generate.js"></script>
-</form>
-<script>
-  </script>
+{% block content %}
+    <h1>Hi!</h1>
+    <div><p></p></div>
 {% endblock %}
