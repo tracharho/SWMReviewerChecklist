@@ -22,6 +22,18 @@ document.getElementById('submit').onclick = function() {
     }
 };
 
+/*
+slightly different functionality that does the same for the
+saving the changed comments.
+
+cIndex: comment index used to find the associated comment
+rIndex: reference index used to find the associated comment
+*/
+document.getElementById('save').onclick = function() {
+  console.log(document);
+};
+
+
 //used to loop through a subcategory's rows and shows or hides them. 
 //the row is the 0th index of the 
 function collapseChildren(obj) {

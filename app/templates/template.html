@@ -9,15 +9,15 @@
   <body>
     <div id="container">
     <h1 class="pagetitle">SWMRC</h1>
-    <div>
+    <div>SWMRC
       {% if current_user.is_authenticated %}
-          <a href="{{ url_for('projectlist') }}">Project List</a> <!--use url_for('xxx') instead of "/xxx"--> 
+          <a href="{{ url_for('projectlist', username=current_user.username) }}">Project List</a> <!--use url_for('xxx') instead of "/xxx"--> 
           <a href="{{ url_for('logout') }}">Logout</a>
       {% else %}
           <a href="{{ url_for('landing') }}">Home</a> <!--use url_for('xxx') instead of "/xxx"--> 
           <a href="{{ url_for('login') }}">Login</a>
       {% endif %}
-    </div>
+  </div>
     <hr>
     {% block content %}{% endblock%}
     

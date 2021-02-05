@@ -14,7 +14,6 @@ function setAttributes(el, attrs) {
       el.setAttribute(key, attrs[key]);
     }
   }
-
 /*
 cat: category object
 sub: subcategory

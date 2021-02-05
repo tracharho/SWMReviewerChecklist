@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_file, flash, url_for
+from flask import Flask, render_template, request, redirect, send_file, flash, url_for, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
@@ -27,10 +27,10 @@ def index():
 @login_required
 def projectlist(username):
     projects = [
-        {'author': user, 'body': 'Project Number 1'},
-        {'author': user, 'body': 'Project Number 2'}
+        {'author': username, 'body': 'Project Number 1'},
+        {'author': username, 'body': 'Project Number 2'}
     ]
-    return render_template('projects.html', user=user, projects=projects, title='PROJECT LIST') 
+    return render_template('projects.html', username=username, projects=projects, title='PROJECT LIST') 
 
 
 @app.route("/checklist", methods=["GET", "POST"])
@@ -49,13 +49,14 @@ def checklist():
             dscnumber = request.form.get('dscnumber')
             letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
             try:
-                print(comments)
                 return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
             except Exception as e:
                 print ("IDK WHAT HAPPENED BOSS")
-        elif request.form['but'] == 'Save':
-            c = request.form
-            print(c)
+        if request.form['but'] == 'Save':
+            reference = request.get_json()
+
+            print('reference', reference)
+            print('---')
         else:
             return('ERROR')
     #checklist.html calls the generate.js script to populate all of the 
@@ -79,7 +80,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '': 
-            next_page = url_for('projectlist')
+            next_page = url_for('projectlist', username=user.username)
         return redirect(next_page)   
     return render_template('login.html',title='Sign In', form=form)
 
