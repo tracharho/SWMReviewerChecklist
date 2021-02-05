@@ -1,4 +1,4 @@
-fetch('static/checklist.json')
+fetch('static/csv.json')
     .then(function (response) {
         return response.json();
     })

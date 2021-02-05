@@ -1,7 +1,6 @@
 import os, json, csv
 
-    
-def categorizeCsvs():
+def createChecklistJSON():
     path_to_csvs = '/app/static/csv'
     if os.path.exists(os.getcwd()+ path_to_csvs):
         csvdir = os.path.abspath(os.getcwd()+ path_to_csvs)
@@ -54,6 +53,7 @@ def categorizeCsvs():
     jsonFilePath = os.getcwd()+ path_to_csvs + ".json"
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
+
 if __name__ == "__main__":
-    categorizeCsvs()
+    createChecklistJSON()
     

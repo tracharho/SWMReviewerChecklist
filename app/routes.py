@@ -6,6 +6,7 @@ from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.makeletter import makeLetter
 from flask_sqlalchemy import SQLAlchemy
+from . import csvdata
 
 
 @app.route("/") 
@@ -22,25 +23,44 @@ def index():
         return render_template('index.html', title='HOME PAGE TITLE') 
     return render_template('index.html', title='HOME PAGE TITLE') 
 
-@app.route("/projectlist", methods=['GET','POST'])
+@app.route("/projectlist/<username>", methods=['GET','POST'])
 @login_required
-def projectlist():
-    return render_template('index.html', title='PROJECT LIST') 
+def projectlist(username):
+    projects = [
+        {'author': user, 'body': 'Project Number 1'},
+        {'author': user, 'body': 'Project Number 2'}
+    ]
+    return render_template('projects.html', user=user, projects=projects, title='PROJECT LIST') 
 
 
-@app.route("/checklist", methods=["POST"])
+@app.route("/checklist", methods=["GET", "POST"])
+@login_required
 def checklist():
+    csvdata.createChecklistJSON()
+    #Functions.js first sets all checkbox values to be equal to the entry box
+    #Then the POST method gets all checked values.
     if request.method == 'POST':        
-        comments = request.form.getlist('checkbox')
-        reviewername = request.form.get('reviewer-name')
-        recipientname = request.form.get('recipient')
-        projectname = request.form.get('projectname')
-        dscnumber = request.form.get('dscnumber')
-        letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
-        try:
-            return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
-        except Exception as e:
-            print ("IDK WHAT HAPPENED BOSS")
+        #changed html submit tag to have name 'but' and value 'Submit'
+        if request.form['but'] == 'Submit':
+            comments = request.form.getlist('checkbox')
+            reviewername = request.form.get('reviewer-name')
+            recipientname = request.form.get('recipient')
+            projectname = request.form.get('projectname')
+            dscnumber = request.form.get('dscnumber')
+            letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
+            try:
+                print(comments)
+                return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
+            except Exception as e:
+                print ("IDK WHAT HAPPENED BOSS")
+        elif request.form['but'] == 'Save':
+            c = request.form
+            print(c)
+        else:
+            return('ERROR')
+    #checklist.html calls the generate.js script to populate all of the 
+    #rows based on the json generated from csvdata.categorizeCSVs()
+    return render_template('checklist.html', title='CHECKLIST')
 
 
 @app.route('/login', methods=['GET', 'POST'])
