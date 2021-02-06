@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Project</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.project_name.label }}<br>
+            {{ form.project_name(size=32)}} 
+            {% for error in form.project_name.errors %}
+            <span style="color": red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.dsc_number.label }}<br>
+            {{ form.dsc_number(size=12)}} 
+            {% for error in form.dsc_number.errors %}
+            <span style="color": red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

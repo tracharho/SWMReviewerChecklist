@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, send_file, flash, url_for, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, NewProjectForm
+from app.models import User, Project, Checklist
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.makeletter import makeLetter
@@ -26,11 +26,7 @@ def index():
 @app.route("/projectlist/<username>", methods=['GET','POST'])
 @login_required
 def projectlist(username):
-    projects = [
-        {'author': username, 'body': 'Project Number 1'},
-        {'author': username, 'body': 'Project Number 2'}
-    ]
-    return render_template('projects.html', username=username, projects=projects, title='PROJECT LIST') 
+    return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST') 
 
 
 @app.route("/checklist", methods=["GET", "POST"])
@@ -103,4 +99,16 @@ def logout():
     logout_user()
     flash('You have successfully logged out!')
     return redirect(url_for('landing'))
+
+@app.route('/new_project', methods=['GET','POST'])
+@login_required
+def new_project():
+    form = NewProjectForm()
+    if form.validate_on_submit():
+        project = Project(name=form.project_name.data, dsc_number=form.dsc_number.data, author=current_user)
+        db.session.add(project)
+        db.session.commit()
+        flash('Project has been saved!')
+        return redirect(url_for('projectlist', username=current_user.username))
+    return render_template('newproject.html', title='New Project', form=form)
     

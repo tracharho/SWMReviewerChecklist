@@ -27,10 +27,19 @@ class Project(db.Model):
     name = db.Column(db.String(140))
     dsc_number = db.Column(db.String(20))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    checklists = db.relationship('Checklist', backref='project_name', lazy='dynamic')
 
     def __repr__(self):
         return '<project {} {}>'.format(self.dsc_number, self.name)
 
+class Checklist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+#Models can only be edited through flask sql alchemy!
+#$ flask db migrate -m "migrate message"
+#$ flask db upgradte

@@ -4,8 +4,12 @@
 {{ username }}
 <ul>
 {% for project in projects %}
-    <li>{{ project }}</li>
+    <p>{{ project.name }}</p>
+    <p>{{ project.dsc_number }}</p>
+    <hr>
+    
 {% endfor %}
 </ul>
+    <a href="{{ url_for('new_project') }}">Create New Project</a>
     <a href="{{ url_for('checklist') }} ">Go to checklist!</a>
 {% endblock %}

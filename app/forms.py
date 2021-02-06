@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -26,3 +26,8 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address')
+
+class NewProjectForm(FlaskForm):
+    project_name = StringField('Project Name', validators=[DataRequired()])
+    dsc_number = StringField('DSC Number', validators=[DataRequired()])
+    submit = SubmitField('Submit')
