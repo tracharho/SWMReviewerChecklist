@@ -26,6 +26,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(140))
     dsc_number = db.Column(db.String(20))
+    recipient = db.Column(db.String(30))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     checklists = db.relationship('Checklist', backref='project_name', lazy='dynamic')
 
@@ -35,6 +36,18 @@ class Project(db.Model):
 class Checklist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    rows = db.relationship('Row', backref='checklist_name', lazy='dynamic')
+
+class Row(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    row_id = db.Column(db.Integer, db.ForeignKey('checklist.id'))
+    category = db.Column(db.String(50))
+    subcategory = db.Column(db.String(50))
+    checked = db.Column(db.Boolean(), default = False, nullable=False)
+    criteria = db.Column(db.String(240), unique=True)
+    comment = db.Column(db.String(240), unique=True)
+    reference = db.Column(db.String(70))
+
 
 @login.user_loader
 def load_user(id):
@@ -42,4 +55,4 @@ def load_user(id):
 
 #Models can only be edited through flask sql alchemy!
 #$ flask db migrate -m "migrate message"
-#$ flask db upgradte
+#$ flask db upgrade

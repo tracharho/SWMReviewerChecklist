@@ -91,12 +91,13 @@ function appendData(data) {
                                 "id": "criteria-"+w['rownum']});
                     criteria.innerHTML = w['Criteria'];
 
-                    let comment = document.createElement("div");
+                    let comment = document.createElement("input");
                     setAttributes(comment, {"class":"comment",
                                 "name":"comment",
-                                "id": "comment-"+w['rownum']});
-                    comment.contentEditable = "true";
-                    comment.innerHTML = w['Comment'];
+                                "id": "comment-"+w['rownum'],
+                                "type":"text",
+                                "placeholder":w['Comment']
+                            });
                     
                     let reference = document.createElement("p");
                     setAttributes(reference, {"class":"reference",
@@ -159,12 +160,13 @@ function appendData(data) {
                                 "id": "criteria-"+w['rownum']});
                     criteria.innerHTML = w['Criteria'];
 
-                    let comment = document.createElement("div");
+                    let comment = document.createElement("input");
                     setAttributes(comment, {"class":"comment",
                                 "name":"comment",
-                                "id": "comment-"+w['rownum']});
-                    comment.contentEditable = "true";
-                    comment.innerHTML = w['Comment'];
+                                "id": "comment-"+w['rownum'],
+                                "type":"text",
+                                "placeholder":w['Comment']
+                            });
                     
                     let reference = document.createElement("p");
                     setAttributes(reference, {"class":"reference",

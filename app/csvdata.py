@@ -1,4 +1,5 @@
 import os, json, csv
+from app.models import Checklist
 
 def createChecklistJSON():
     path_to_csvs = '/app/static/csv'

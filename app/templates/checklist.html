@@ -4,6 +4,7 @@
 <h4>Project: {{ title }} </h4>
 <h5>{{ data }}</h5>
 <form action="/checklist" method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <label for="reviewer-name"></label>
     <input class="textinput" type="text" name="reviewer-name" id = "reviewer-name" placeholder="Reviewer Name" required>
     <label for="recipient"></label>

@@ -29,6 +29,7 @@ def projectlist(username):
     return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST') 
 
 
+#HIDDEN CSRF TOKEN???
 @app.route("/checklist", methods=["GET", "POST"])
 @login_required
 def checklist():
@@ -49,8 +50,7 @@ def checklist():
             except Exception as e:
                 print ("IDK WHAT HAPPENED BOSS")
         if request.form['but'] == 'Save':
-            reference = request.get_json()
-
+            reference = request.form.getlist('comment')
             print('reference', reference)
             print('---')
         else:
