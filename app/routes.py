@@ -33,7 +33,7 @@ def projectlist(username):
 @app.route("/checklist", methods=["GET", "POST"])
 @login_required
 def checklist():
-    csvdata.createChecklistJSON()
+    #csvdata.createChecklistJSON()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
     if request.method == 'POST':        

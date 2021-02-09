@@ -36,23 +36,36 @@ class Project(db.Model):
 class Checklist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
-    rows = db.relationship('Row', backref='checklist_name', lazy='dynamic')
+    rows = db.relationship('ModifiedRow', backref='checklist_name', lazy='dynamic')
 
-class Row(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class ModifiedRow(db.Model):
+    row_number = db.Column(db.String, primary_key=True)
     row_id = db.Column(db.Integer, db.ForeignKey('checklist.id'))
     category = db.Column(db.String(50))
     subcategory = db.Column(db.String(50))
     checked = db.Column(db.Boolean(), default = False, nullable=False)
-    criteria = db.Column(db.String(240), unique=True)
-    comment = db.Column(db.String(240), unique=True)
-    reference = db.Column(db.String(70))
+    Criteria = db.Column(db.String(240), unique=True)
+    Comment = db.Column(db.String(240), unique=True)
+    Ceference = db.Column(db.String(70))
+
+#The table containing rows of the original checklist 
+#The intent is to have the checklist load these rows in by default, but check
+#if the project in use has a checked checkbox and/or entry text. If yes, then
+#load the user's specific row in that place. 
+class OriginalRow(db.Model):
+    rownum = db.Column(db.String, primary_key=True)
+    category = db.Column(db.String(50))
+    subcategory = db.Column(db.String(50))
+    checked = db.Column(db.Boolean(), default = False, nullable=False)
+    Criteria = db.Column(db.String(240), unique=True)
+    Comment = db.Column(db.String(240), unique=True)
+    Reference = db.Column(db.String(70))
+    
 
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-#Models can only be edited through flask sql alchemy!
 #$ flask db migrate -m "migrate message"
 #$ flask db upgrade

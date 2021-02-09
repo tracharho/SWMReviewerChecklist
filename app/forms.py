@@ -30,7 +30,7 @@ class RegistrationForm(FlaskForm):
 class NewProjectForm(FlaskForm):
     project_name = StringField('Project Name', validators=[DataRequired()])
     dsc_number = StringField('DSC Number', validators=[DataRequired()])
-    recipient = StringField('Recipient', validtors=[DataRequired()])
+    recipient = StringField('Recipient', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 #class Checklist(FlaskForm):

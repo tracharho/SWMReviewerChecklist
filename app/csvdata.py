@@ -1,13 +1,15 @@
 import os, json, csv
-from app.models import Checklist
+from app.models import Checklist, ModifiedRow, OriginalRow
+from app import db
 
+# TO DO
+# - Decide if the JSON writing should stay or go. 
+# - Refractor and stuff.
 def createChecklistJSON():
     path_to_csvs = '/app/static/csv'
     if os.path.exists(os.getcwd()+ path_to_csvs):
         csvdir = os.path.abspath(os.getcwd()+ path_to_csvs)
-        folder = []
-        for i in os.walk(csvdir,topdown=True):
-            folder.append(i)
+        folder = [i for i in os.walk(csvdir,topdown=True)]
         catandsub = {}
         categories = folder[0][1]
         for subcategories in categories:
@@ -17,20 +19,34 @@ def createChecklistJSON():
     else:
         return "MISSION FAILURE ON {}".format(os.getcwd())
     
-
-    data = []
-    dummy = {}
-    j = 1
-    l = [] #row list
-    m = [] #subcat list
-    n= [] #cat list
+    """ 
+    Sample Directory Tree inside the csv folder
+    
+    .
+    ├── Erosion and Sediment Control (Category)
+    │   └── Silt Fence.csv (Subcategory)
+    ├── General (Category)
+    │   └── Site Plan - General Requirements.csv (Subcategory)
+    └── Stormwater (Category)
+        ├── Permeable Pavement.csv (Subcategory)
+        └── Stormwater - General Requirements.csv (Subcategory)
+    
+    Each subcateory has its own number of rows
+    -subcat : Subcatchment
+    -cat : list of categories which is also the names of the Category folders
+    -sub : list of subcategories which is the name of the Subcategory file names
+    -filename : the subcategory string stripped of '.csv'
+    """
+    
+    dummy = {} # a temporary container dictionary
+    j = 1 # int iterator
     
     row_num = [] #row number list
-    #cat : categories which happen be the folders
+    #
     #sub : list of subcategories
+    #filename : String name of the subcategory
     #print(catandsub.items())
-    for cat, sub in catandsub.items(): #looping through each folder is correct
-        #print(dummy)
+    for cat, sub in catandsub.items():
         c = []
         for file in sub: #for each .csv in the folder
             b = {}
@@ -41,20 +57,27 @@ def createChecklistJSON():
                 csvReader = csv.DictReader(f)     
                 for row in csvReader:
                     a = {}
-                    for k, v in row.items():
-                        a[k] = v
+                    rowdb = OriginalRow()
+                    # row is an ordered dictionary, use dictionary indexsing for looping
+                    for k, v in row.items(): # k : column name & v : column value
+                        a[k] = v      
+                    
                     a["rownum"] = ("row"+str(j))
-                    row_num.append("row"+str(j))
+                    a['subcategory'] = filename
+                    a['category'] = cat
+                    for k, v in a.items():
+                        setattr(rowdb, k, v)
+                    rowdb.checked = False
+                    print(vars(rowdb))  
+
+                    db.session.add(rowdb)
+                    db.session.commit()
                     al.append(a)
                     j += 1
-                b[filename] = al
-            c.append(b)
-        dummy[cat] = c
-    data = [dummy]
+    data = [dummy] # the end resulting list that will contain dummy inside a list.
     jsonFilePath = os.getcwd()+ path_to_csvs + ".json"
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
-
 if __name__ == "__main__":
     createChecklistJSON()
     
