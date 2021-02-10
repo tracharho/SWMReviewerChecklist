@@ -2,6 +2,8 @@ from app import db, login
 from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.sql.expression import cast
 
 
 class User(db.Model, UserMixin):
@@ -24,18 +26,21 @@ class User(db.Model, UserMixin):
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(140))
-    dsc_number = db.Column(db.String(20))
-    recipient = db.Column(db.String(30))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    checklists = db.relationship('Checklist', backref='project_name', lazy='dynamic')
+    name = db.Column(db.String(140), nullable=False)
+    dsc_number = db.Column(db.String(20), nullable=False)
+    recipient = db.Column(db.String(30), nullable=False)
+    checklist = db.column_property("Checklist-"+db.cast(id,db.String))
+    checklist_is_original = db.Column(db.Boolean,default=True, nullable=False)
 
     def __repr__(self):
-        return '<project {} {}>'.format(self.dsc_number, self.name)
+        return '<name {} dsc_number {} recipient {} checklist {}>'.format(self.dsc_number, self.name, self.recipient, self.checklist)
 
 class Checklist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    
+    is_original = db.Column(db.Boolean)
     rows = db.relationship('ModifiedRow', backref='checklist_name', lazy='dynamic')
 
 class ModifiedRow(db.Model):

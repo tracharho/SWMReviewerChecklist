@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, send_file, flash, url_for, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, NewProjectForm
-from app.models import User, Project, Checklist
+from app.models import User, Project, Checklist, ModifiedRow, OriginalRow
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.makeletter import makeLetter
@@ -30,10 +30,11 @@ def projectlist(username):
 
 
 #HIDDEN CSRF TOKEN???
-@app.route("/checklist", methods=["GET", "POST"])
+# cl : local checklist variable name
+@app.route("/checklist/<projectname>", methods=["GET", "POST"])
 @login_required
-def checklist():
-    #csvdata.createChecklistJSON()
+def checklist(projectname):
+    
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
     if request.method == 'POST':        
@@ -55,9 +56,9 @@ def checklist():
             print('---')
         else:
             return('ERROR')
-    #checklist.html calls the generate.js script to populate all of the 
-    #rows based on the json generated from csvdata.categorizeCSVs()
-    return render_template('checklist.html', title='CHECKLIST')
+    # checklist.html calls the generate.js script to populate all of the 
+    # rows based on the json generated from csvdata.categorizeCSVs()
+    return render_template('checklist.html', title='CHECKLIST', projectname=projectname)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -105,7 +106,7 @@ def logout():
 def new_project():
     form = NewProjectForm()
     if form.validate_on_submit():
-        project = Project(name=form.project_name.data, dsc_number=form.dsc_number.data, author=current_user)
+        project = Project(name=form.project_name.data, dsc_number=form.dsc_number.data, recipient=form.recipient.data ,author=current_user)
         db.session.add(project)
         db.session.commit()
         flash('Project has been saved!')

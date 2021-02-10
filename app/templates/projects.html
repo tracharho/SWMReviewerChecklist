@@ -4,12 +4,14 @@
 {{ username }}
 <ul>
 {% for project in projects %}
-    <p>{{ project.name }}</p>
-    <p>{{ project.dsc_number }}</p>
+    <form action="{{ url_for('checklist', projectname=project.name) }}" method="POST">
+        {{ form.hidden_tag() }}
+        <p>Project Name: {{ project.name }}</p>
+        <p>Project Number: {{ project.dsc_number }}</p>
+        <input type="submit" name="{{ project.id }}" id="submit" value="Submit">
+    </form>
     <hr>
-    
 {% endfor %}
 </ul>
     <a href="{{ url_for('new_project') }}">Create New Project</a>
-    <a href="{{ url_for('checklist') }} ">Go to checklist!</a>
 {% endblock %}
