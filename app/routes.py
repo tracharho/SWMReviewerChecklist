@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_file, flash, url_for, session
+from flask import Flask, render_template, session, request, redirect, send_file, flash, url_for, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, NewProjectForm
 from app.models import User, Project, Checklist, ModifiedRow, OriginalRow
@@ -6,7 +6,7 @@ from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.makeletter import makeLetter
 from flask_sqlalchemy import SQLAlchemy
-from . import csvdata
+from app.csvdata import createChecklistJSON
 
 
 @app.route("/") 
@@ -23,28 +23,29 @@ def index():
         return render_template('index.html', title='HOME PAGE TITLE') 
     return render_template('index.html', title='HOME PAGE TITLE') 
 
-@app.route("/projectlist/<username>", methods=['GET','POST'])
+@app.route("/<username>/projectlist", methods=['GET','POST'])
 @login_required
-def projectlist(username):
+def projectlist(username): 
     return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST') 
 
 
 #HIDDEN CSRF TOKEN???
 # cl : local checklist variable name
-@app.route("/checklist/<projectname>", methods=["GET", "POST"])
+#TODO CLEAN UP JIINJA AND LOCAL VARIABLE NAMES
+@app.route("/<username>/<projectname>/checklist/", methods=["GET", "POST"])
 @login_required
-def checklist(projectname):
-    
+def checklist(username,projectname):
+    current_project = Project.query.filter_by(name=projectname).first()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
     if request.method == 'POST':        
         #changed html submit tag to have name 'but' and value 'Submit'
         if request.form['but'] == 'Submit':
             comments = request.form.getlist('checkbox')
-            reviewername = request.form.get('reviewer-name')
-            recipientname = request.form.get('recipient')
-            projectname = request.form.get('projectname')
-            dscnumber = request.form.get('dscnumber')
+            reviewername = current_user.name
+            recipientname = current_project.recipientname
+            projectname = current_project.name
+            dscnumber = current_project.dsc_number
             letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
             try:
                 return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
@@ -58,7 +59,7 @@ def checklist(projectname):
             return('ERROR')
     # checklist.html calls the generate.js script to populate all of the 
     # rows based on the json generated from csvdata.categorizeCSVs()
-    return render_template('checklist.html', title='CHECKLIST', projectname=projectname)
+    return render_template('checklist.html', title='CHECKLIST', current_project=current_project)
 
 
 @app.route('/login', methods=['GET', 'POST'])

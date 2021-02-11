@@ -1,37 +1,13 @@
 {% extends 'template.html' %}
 {% block content %}
-
-<h3>Hello, {{ current_user.username }}</h3>
-<h4>Project: {{ title }} </h4>
+<h3>Reviewer: {{ current_user.username }}</h3>
+<h4>Project: {{ current_project.name }} </h4>
+<h4>Recipient: {{ current_project.recipient }} </h4>
+<h4>DSC Number: {{ current_project.dsc_number }} </h4>
 <h5>{{ data }}</h5>
-<form action="/checklist" method="POST">
-  {{ form.hidden_tag() }}
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-  <label for="reviewer-name"></label>
-    <input class="textinput" type="text" name="reviewer-name" id = "reviewer-name" placeholder="Reviewer Name" required>
-    <label for="recipient"></label>
-    <input class="textinput" type="text" name="recipient" id = "recipient" placeholder="Recipient Name" required>
-    <label for="projectname"></label>
-    <input class="textinput" type="text" name="projectname" id = "projectname" placeholder="Project Name" required>
-    <label for="dscnumber"></label>
-    <input class="textinput" type="text" name="dscnumber" id = "dscnumber" placeholder="DSC Number" required>
-
+<form action="{{ url_for('checklist', username=current_user.username, projectname=projectname) }}" method="POST">
   <div id="myData"></div>
   <input type="submit" name="but" id="submit" value="Submit">
   <input type="submit" name="but" id="save" value="Save">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type="text/javascript" src="static/js/functions.js"></script>
-  <script type="text/javascript" src="static/js/generate.js"></script>
 </form>
-<script>
-$('#save').click(function() {
-    myhtml = $('html').html();
-    $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/parse_data",
-        data: {html:myhtml} // made into a hash for retrieval
-    });
-});
-
-  </script>
 {% endblock %}

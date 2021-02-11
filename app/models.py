@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    name = db.Column(db.String(140), nullable=False)
+    name = db.Column(db.String(140), nullable=False, unique=True)
     dsc_number = db.Column(db.String(20), nullable=False)
     recipient = db.Column(db.String(30), nullable=False)
     checklist = db.column_property("Checklist-"+db.cast(id,db.String))

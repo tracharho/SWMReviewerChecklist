@@ -71,9 +71,9 @@ def createChecklistJSON():
                     print(vars(rowdb))  
 
                     db.session.add(rowdb)
-                    db.session.commit()
                     al.append(a)
                     j += 1
+    db.session.commit()
     data = [dummy] # the end resulting list that will contain dummy inside a list.
     jsonFilePath = os.getcwd()+ path_to_csvs + ".json"
     with open(jsonFilePath, 'w') as jsonf:
