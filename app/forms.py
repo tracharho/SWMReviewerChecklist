@@ -33,4 +33,6 @@ class NewProjectForm(FlaskForm):
     recipient = StringField('Recipient', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-#class Checklist(FlaskForm):
+
+class ChecklistForm(FlaskForm):
+    pass

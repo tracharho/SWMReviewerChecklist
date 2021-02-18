@@ -5,9 +5,11 @@
 <h4>Recipient: {{ current_project.recipient }} </h4>
 <h4>DSC Number: {{ current_project.dsc_number }} </h4>
 <h5>{{ data }}</h5>
-<form action="{{ url_for('checklist', username=current_user.username, projectname=projectname) }}" method="POST">
+<form action="{{ url_for('checklist', username=current_user.username, projectname=current_project.name) }}" method="POST">
+  {{ form.hidden_tag() }} 
   <div id="myData"></div>
-  <input type="submit" name="but" id="submit" value="Submit">
-  <input type="submit" name="but" id="save" value="Save">
+  <input type="submit" name="but" id="submit" value="Submit" spellcheck="false">
+  <input type="submit" name="but" id="save" value="Save" spellcheck="false">
+ 
 </form>
 {% endblock %}

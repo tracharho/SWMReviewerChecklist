@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, send_file, flash, url_for, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, NewProjectForm
+from app.forms import LoginForm, RegistrationForm, NewProjectForm, ChecklistForm
 from app.models import User, Project, Checklist, ModifiedRow, OriginalRow
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
@@ -36,14 +36,15 @@ def projectlist(username):
 @login_required
 def checklist(username,projectname):
     current_project = Project.query.filter_by(name=projectname).first()
+    form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
     if request.method == 'POST':        
         #changed html submit tag to have name 'but' and value 'Submit'
         if request.form['but'] == 'Submit':
             comments = request.form.getlist('checkbox')
-            reviewername = current_user.name
-            recipientname = current_project.recipientname
+            reviewername = current_user.username
+            recipientname = current_project.recipient
             projectname = current_project.name
             dscnumber = current_project.dsc_number
             letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
@@ -59,7 +60,7 @@ def checklist(username,projectname):
             return('ERROR')
     # checklist.html calls the generate.js script to populate all of the 
     # rows based on the json generated from csvdata.categorizeCSVs()
-    return render_template('checklist.html', title='CHECKLIST', current_project=current_project)
+    return render_template('checklist.html', title='CHECKLIST', current_project=current_project, username=username, form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
