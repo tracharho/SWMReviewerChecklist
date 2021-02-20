@@ -36,6 +36,8 @@ def projectlist(username):
 @login_required
 def checklist(username,projectname):
     current_project = Project.query.filter_by(name=projectname).first()
+    if current_project.checklist_is_original == True:
+        list_of_rows = OriginalRow.query.all()
     form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
@@ -60,7 +62,7 @@ def checklist(username,projectname):
             return('ERROR')
     # checklist.html calls the generate.js script to populate all of the 
     # rows based on the json generated from csvdata.categorizeCSVs()
-    return render_template('checklist.html', title='CHECKLIST', current_project=current_project, username=username, form=form)
+    return render_template('checklist.html', title='CHECKLIST', current_project=current_project, username=username, form=form, list_of_rows=list_of_rows)
 
 
 @app.route('/login', methods=['GET', 'POST'])

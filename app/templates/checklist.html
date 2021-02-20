@@ -4,9 +4,19 @@
 <h4>Project: {{ current_project.name }} </h4>
 <h4>Recipient: {{ current_project.recipient }} </h4>
 <h4>DSC Number: {{ current_project.dsc_number }} </h4>
-<h5>{{ data }}</h5>
 <form action="{{ url_for('checklist', username=current_user.username, projectname=current_project.name) }}" method="POST">
   {{ form.hidden_tag() }} 
+  {% for rows in list_of_rows %}
+    {% if loop.first == True %}
+      <p>I am the first line!</p>
+    {% elif loop.first == False and loop.last == False %}
+      {{ list_of_rows[loop.index0 -1 ].category }}
+      {{ list_of_rows[loop.index0].category }}
+      <p>{{ rows.rownum}} </p> {{ loop.index }}
+    {% else %}
+      <p>This is the last iteration!</p>
+    {% endif %}
+  {% endfor %}
   <div id="myData"></div>
   <input type="submit" name="but" id="submit" value="Submit" spellcheck="false">
   <input type="submit" name="but" id="save" value="Save" spellcheck="false">
