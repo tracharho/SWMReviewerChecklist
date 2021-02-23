@@ -1,25 +1,83 @@
 {% extends 'template.html' %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
 <h3>Reviewer: {{ current_user.username }}</h3>
 <h4>Project: {{ current_project.name }} </h4>
 <h4>Recipient: {{ current_project.recipient }} </h4>
 <h4>DSC Number: {{ current_project.dsc_number }} </h4>
 <form action="{{ url_for('checklist', username=current_user.username, projectname=current_project.name) }}" method="POST">
-  {{ form.hidden_tag() }} 
-  {% for rows in list_of_rows %}
-    {% if loop.first == True %}
-      <p>I am the first line!</p>
-    {% elif loop.first == False and loop.last == False %}
-      {{ list_of_rows[loop.index0 -1 ].category }}
-      {{ list_of_rows[loop.index0].category }}
-      <p>{{ rows.rownum}} </p> {{ loop.index }}
-    {% else %}
-      <p>This is the last iteration!</p>
-    {% endif %}
-  {% endfor %}
-  <div id="myData"></div>
-  <input type="submit" name="but" id="submit" value="Submit" spellcheck="false">
-  <input type="submit" name="but" id="save" value="Save" spellcheck="false">
- 
+{{ form.hidden_tag() }} 
+{% for rows in list_of_rows %}
+	{% if loop.first == True %} 
+	<a onclick="show(this)" id="{{loop.index}}" name="{{rows.category}}" class="catAnchor" style="display: flex;">
+		<div class="catCollapsible" name="{{rows.category}}" id="{{"catCollapsible" ~ loop.index}}">
+			<h2 class="catHeader">{{rows.category}}</h2>
+		</div>
+		</a>
+		<div class="subCollapsible sub-of-{{rows.category}}" name="{{rows.subcategory}}" id="sub{{loop.index}}" style="display: flex;">
+			<a onclick="show(this)" id="{{loop.index}}" name="{{rows.subcategory}}" class="subAnchor" style="display: flex;">
+			<h2 class="subHeader">{{rows.subcategory}}</h2>
+		</div>
+		</a>
+		<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+			<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
+			<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
+			<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
+			<p class="reference" name="reference" id="reference-{{rows.rownum}}">{{rows.Reference}}</p>
+		</div>
+	{% else  %}
+    		{% if list_of_rows[loop.index0-1].category == list_of_rows[loop.index0].category %}
+			{% if list_of_rows[loop.index0-1].subcategory == list_of_rows[loop.index0].subcategory %}
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
+				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
+				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
+				<p class="reference" name="reference" id="reference-{{rows.rownum}}">{{rows.Reference}}</p>
+				</div>
+			{% else %}
+				<a onclick="show(this)" id="subcategory-{{loop.index}}" name="{{rows.subcategory}}" class="subAnchor">
+				<div class="subCollapsible sub-of-{{rows.category}}" name="{{rows.subcategory}}" id="sub{{loop.index}}" style="display: flex;">
+				<h2 class="subHeader">{{rows.subcategory}}</h2>
+				</div>
+				</a>
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
+				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
+				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
+				<p class="reference" name="reference" id="reference-{{rows.rownum}}">{{rows.Reference}}</p>
+				</div>
+			{% endif %}
+		{% else %}
+			<a onclick="show(this)" id="{{loop.index}}" name="{{rows.category}}" class="catAnchor" style="display: flex;">
+			<div class="catCollapsible" name="{{rows.category}}" id="{{"catCollapsible" ~ loop.index}}">
+			<h2 class="catHeader">{{rows.category}}</h2>
+			</div>
+			{% if list_of_rows[loop.index0-1].subcategory == list_of_rows[loop.index0].subcategory %}
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
+				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
+				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
+				<p class="reference" name="reference" id="reference-{{rows.rownum}}">{{rows.Reference}}</p>
+				</div>
+			{% else %}
+				<a onclick="show(this)" id="subcategory-{{loop.index}}" name="{{rows.subcategory}}" class="subAnchor">
+				<div class="subCollapsible sub-of-{{rows.category}}" name="{{rows.subcategory}}" id="sub{{loop.index}}" style="display: flex;">
+				<h2 class="subHeader">{{rows.subcategory}}</h2>
+				</div>
+				</a>
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
+				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
+				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
+				<p class="reference" name="reference" id="reference-{{rows.rownum}}">{{rows.Reference}}</p>
+				</div>
+			{% endif %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+<input type="submit" name="but" id="submit" value="Submit" spellcheck="false">
+<input type="submit" name="but" id="save" value="Save" spellcheck="false">
 </form>
+
+	<script type ="text/javascript" src="{{ url_for('static', filename='js/functions.js') }}"></script>
 {% endblock %}

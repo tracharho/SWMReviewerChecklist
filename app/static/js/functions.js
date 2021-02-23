@@ -16,10 +16,20 @@ document.getElementById('submit').onclick = function() {
         let rowNumValue = checkbox.id;
         let comment = document.getElementById(commentIDPrefix+rowNumValue);
         let reference = document.getElementById(referenceIDPrefix+rowNumValue);
-        let letterComment = comment.innerHTML + " (" + reference.innerHTML + ".)";
-        checkbox.value = letterComment;
-      }
+	let letterComment;
+	if (comment.value) {
+        letterComment = comment.value + " (" + reference.innerHTML + ".)";
+	}
+	else {
+	letterComment = comment.placeholder + " (" + reference.innerHTML + ".)";
+	}
+	checkbox.value = letterComment;
+	console.log(comment.placeholder);
+	console.log(comment.value);
+	console.log(typeof(comment.value));
+	console.log('~~~');
     }
+  }
 };
 
 /*
@@ -35,13 +45,9 @@ document.getElementById('save').onclick = function() {
 
 
 //used to loop through a subcategory's rows and shows or hides them. 
-//the row is the 0th index of the 
 function collapseChildren(obj) {
   let children = obj.children;
-  console.log(children);
-  console.log("row"+children[0].id);
   let rows = document.getElementsByName("row"+children[0].id);
-  console.log(rows);
   for (row of rows) {
     showOrHide(row);
   }
@@ -73,14 +79,15 @@ subAnchor : Subcategory Anchor element
 Element heirachy : catAnchor < catCollapsible < subAnchor < subCollapsible < rows
 */
 function show(obj) {
-  console.log(obj);
+	console.log(obj);
   let thisClass = obj.attributes.class.value;
   if (thisClass == "catAnchor") {
-    let catName = obj.attributes.name.value;
-    let subs = document.getElementsByName("subcategory-"+String(catName)); //children Names are in this format
+    let catName = obj.attributes.name.value; //names like Stormwater or General Requirements
+    let subs = document.getElementsByClassName("sub-of-"+String(catName)); //children Names are in this format
     for (sub of subs) {
       showOrHide(sub);
-      let rows = document.getElementsByName("row"+sub.id); //find each subcategories rows by id in "row{id}" format
+      let subName = sub.attributes.name.value;
+      let rows = document.getElementsByClassName("row-of-"+String(subName)); //find each subcategories rows by id in "row{id}" format
       for (row of rows) {
         //checks if all rows are hidden are showing.
         //The category closes all opened children (subcategories) and "grandchildren" (rows)
@@ -95,6 +102,12 @@ function show(obj) {
   }
   //This is called just the subcategory is clicked
   else {
-    collapseChildren(obj);
-  }
-};
+    	let subName = obj.attributes.name.value; //names like Stormwater or General Requirement
+	let rows = document.getElementsByClassName("row-of-"+String(subName)); //find each subcategories rows by id in "row{id}" format
+      	for (row of rows) {
+		showOrHide(row);
+        	}
+	  
+      	}  
+  };
+
