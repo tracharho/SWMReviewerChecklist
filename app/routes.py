@@ -31,7 +31,6 @@ def projectlist(username):
 
 #HIDDEN CSRF TOKEN???
 # cl : local checklist variable name
-#TODO CLEAN UP JIINJA AND LOCAL VARIABLE NAMES
 @app.route("/<username>/<projectname>/checklist/", methods=["GET", "POST"])
 @login_required
 def checklist(username,projectname):
