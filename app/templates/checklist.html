@@ -19,7 +19,7 @@
 			<h2 class="subHeader">{{rows.subcategory}}</h2>
 		</div>
 		</a>
-		<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+		<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: none;">
 			<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
 			<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
 			<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
@@ -28,7 +28,7 @@
 	{% else  %}
     		{% if list_of_rows[loop.index0-1].category == list_of_rows[loop.index0].category %}
 			{% if list_of_rows[loop.index0-1].subcategory == list_of_rows[loop.index0].subcategory %}
-				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
 				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
@@ -40,7 +40,7 @@
 				<h2 class="subHeader">{{rows.subcategory}}</h2>
 				</div>
 				</a>
-				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
 				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
@@ -53,7 +53,7 @@
 			<h2 class="catHeader">{{rows.category}}</h2>
 			</div>
 			{% if list_of_rows[loop.index0-1].subcategory == list_of_rows[loop.index0].subcategory %}
-				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
 				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">
@@ -65,7 +65,7 @@
 				<h2 class="subHeader">{{rows.subcategory}}</h2>
 				</div>
 				</a>
-				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: flex;">
+				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.rownum}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.rownum}}" spellcheck="false">
 				<p class="criteria" name="criteria" id="criteria-{{rows.rownum}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.rownum}}" placeholder="{{rows.Comment}}">

@@ -31,7 +31,7 @@ class Project(db.Model):
     dsc_number = db.Column(db.String(20), nullable=False)
     recipient = db.Column(db.String(30), nullable=False)
     checklist = db.column_property("Checklist-"+db.cast(id,db.String))
-    checklist_is_original = db.Column(db.Boolean,default=True, nullable=False)
+    checklist_is_original = db.Column(db.Boolean,default=True, nullable=True)
 
     def __repr__(self):
         return '<name {} dsc_number {} recipient {} checklist {}>'.format(self.dsc_number, self.name, self.recipient, self.checklist)
@@ -44,14 +44,11 @@ class Checklist(db.Model):
     rows = db.relationship('ModifiedRow', backref='checklist_name', lazy='dynamic')
 
 class ModifiedRow(db.Model):
-    row_number = db.Column(db.String, primary_key=True)
+    original_id = db.Column(db.String, primary_key=True)
+    row_number = db.Column(db.String)
     row_id = db.Column(db.Integer, db.ForeignKey('checklist.id'))
-    category = db.Column(db.String(50))
-    subcategory = db.Column(db.String(50))
-    checked = db.Column(db.Boolean(), default = False, nullable=False)
-    Criteria = db.Column(db.String(240), unique=True)
+    checked = db.Column(db.Boolean(), default = False)
     Comment = db.Column(db.String(240), unique=True)
-    Ceference = db.Column(db.String(70))
 
 #The table containing rows of the original checklist 
 #The intent is to have the checklist load these rows in by default, but check

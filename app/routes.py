@@ -37,6 +37,8 @@ def checklist(username,projectname):
     current_project = Project.query.filter_by(name=projectname).first()
     if current_project.checklist_is_original == True:
         list_of_rows = OriginalRow.query.all()
+    else:
+        list_of_rows = OriginalRow.query.all()
     form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
@@ -54,13 +56,15 @@ def checklist(username,projectname):
             except Exception as e:
                 print ("IDK WHAT HAPPENED BOSS")
         if request.form['but'] == 'Save':
-            reference = request.form.getlist('comment')
-            print('reference', reference)
-            print('---')
+            saved_comments = request.form.getlist('checkbox')
+            current_project.checklist_is_original = False
+            for rows in saved_comments:
+                saved_row_number, saved_comment = rows.split('|')[0], rows.split('|')[1]
+                saved_row = ModifiedRow(row_number=saved_row_number, checked=True, Comment=saved_comment, checklist_name=current_project)
+                db.session.add(saved_row)
+            db.session.commit()
         else:
             return('ERROR')
-    # checklist.html calls the generate.js script to populate all of the 
-    # rows based on the json generated from csvdata.categorizeCSVs()
     return render_template('checklist.html', title='CHECKLIST', current_project=current_project, username=username, form=form, list_of_rows=list_of_rows)
 
 

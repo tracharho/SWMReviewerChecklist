@@ -27,37 +27,25 @@ document.getElementById('submit').onclick = function() {
     }
   }
 };
-
-document.getElementById('save').onclick = function() {
+let save_button = document.getElementById("save");
+save_button.addEventListener("click", function(){
     let checkboxes = document.getElementsByName('checkbox');
     let commentIDPrefix = "comment-";
     for (let checkbox of checkboxes) {
       if (checkbox.checked) {
         let rowNumValue = checkbox.id;
         let comment = document.getElementById(commentIDPrefix+rowNumValue);
-	let letterComment;
+	let rowComment;
 	if (comment.value) {
-        letterComment = comment.value;
+        rowComment = comment.value;
 	}
 	else {
-	letterComment = comment.placeholder;
+	rowComment = comment.placeholder;
 	}
-	checkbox.value = letterComment;
+	checkbox.value = checkbox.id + "|" + rowComment;
     }
   }
-};
-
-/*
-slightly different functionality that does the same for the
-saving the changed comments.
-
-cIndex: comment index used to find the associated comment
-rIndex: reference index used to find the associated comment
-*/
-document.getElementById('save').onclick = function() {
-  console.log(document);
-};
-
+});
 
 //used to loop through a subcategory's rows and shows or hides them. 
 function collapseChildren(obj) {
@@ -94,7 +82,6 @@ subAnchor : Subcategory Anchor element
 Element heirachy : catAnchor < catCollapsible < subAnchor < subCollapsible < rows
 */
 function show(obj) {
-	console.log(obj);
   let thisClass = obj.attributes.class.value;
   if (thisClass == "catAnchor") {
     let catName = obj.attributes.name.value; //names like Stormwater or General Requirements
