@@ -24,10 +24,25 @@ document.getElementById('submit').onclick = function() {
 	letterComment = comment.placeholder + " (" + reference.innerHTML + ".)";
 	}
 	checkbox.value = letterComment;
-	console.log(comment.placeholder);
-	console.log(comment.value);
-	console.log(typeof(comment.value));
-	console.log('~~~');
+    }
+  }
+};
+
+document.getElementById('save').onclick = function() {
+    let checkboxes = document.getElementsByName('checkbox');
+    let commentIDPrefix = "comment-";
+    for (let checkbox of checkboxes) {
+      if (checkbox.checked) {
+        let rowNumValue = checkbox.id;
+        let comment = document.getElementById(commentIDPrefix+rowNumValue);
+	let letterComment;
+	if (comment.value) {
+        letterComment = comment.value;
+	}
+	else {
+	letterComment = comment.placeholder;
+	}
+	checkbox.value = letterComment;
     }
   }
 };
