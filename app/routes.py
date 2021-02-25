@@ -8,7 +8,6 @@ from app.makeletter import makeLetter
 from flask_sqlalchemy import SQLAlchemy
 from app.csvdata import createChecklistJSON
 
-
 @app.route("/") 
 @app.route("/landing")
 def landing():
@@ -38,7 +37,11 @@ def checklist(username,projectname):
     if current_project.checklist_is_original == True:
         list_of_rows = OriginalRow.query.all()
     else:
-        list_of_rows = OriginalRow.query.all()
+        #TODO Addin logic to insert the edited rows.
+        list_of_rows = OriginalRow.query.all() #
+        list_of_saved_rows = ModifiedRow.query.filter_by(parent_project_id=current_project.id)
+        for saved_row in list_of_saved_rows:
+            print(saved_row.row_number)
     form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
@@ -51,20 +54,15 @@ def checklist(username,projectname):
             projectname = current_project.name
             dscnumber = current_project.dsc_number
             letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
-            try:
-                return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
-            except Exception as e:
-                print ("IDK WHAT HAPPENED BOSS")
+            return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
+        # Check if modified exist. If it does, then don't save. 
         if request.form['but'] == 'Save':
             saved_comments = request.form.getlist('checkbox')
             current_project.checklist_is_original = False
             for rows in saved_comments:
                 saved_row_number, saved_comment = rows.split('|')[0], rows.split('|')[1]
-                try:
-                    saved_row = ModifiedRow(row_number=saved_row_number, checked=True, Comment=saved_comment, saved_comment=current_project)
+                    saved_row = ModifiedRow(row_number=saved_row_number, checked=True, Comment=saved_comment, parent_project_id=current_project.id)
                     db.session.add(saved_row)
-                except: 
-                    print('IT WAS THE MODIFIED ROW')
             db.session.commit()
         else:
             return('ERROR')

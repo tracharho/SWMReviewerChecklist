@@ -68,8 +68,6 @@ def createChecklistJSON():
                     for k, v in a.items():
                         setattr(rowdb, k, v)
                     rowdb.checked = False
-                    print(vars(rowdb))  
-
                     db.session.add(rowdb)
                     al.append(a)
                     j += 1
@@ -78,6 +76,7 @@ def createChecklistJSON():
     jsonFilePath = os.getcwd()+ path_to_csvs + ".json"
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
+
 if __name__ == "__main__":
     createChecklistJSON()
     

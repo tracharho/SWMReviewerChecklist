@@ -40,21 +40,22 @@ class Project(db.Model):
 class ModifiedRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     row_number = db.Column(db.String)
-    row_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    parent_project_id  = db.Column(db.Integer, db.ForeignKey('project.id'))
     checked = db.Column(db.Boolean(), default = False)
-    Comment = db.Column(db.String(240), unique=True)
+    Comment = db.Column(db.String(240))
 
 #The table containing rows of the original checklist 
 #The intent is to have the checklist load these rows in by default, but check
 #if the project in use has a checked checkbox and/or entry text. If yes, then
 #load the user's specific row in that place. 
 class OriginalRow(db.Model):
-    rownum = db.Column(db.String, primary_key=True)
+    id  = db.Column(db.Integer, primary_key=True)
+    rownum = db.Column(db.String, unique=True)
     category = db.Column(db.String(50))
     subcategory = db.Column(db.String(50))
     checked = db.Column(db.Boolean(), default = False, nullable=False)
-    Criteria = db.Column(db.String(240), unique=True)
-    Comment = db.Column(db.String(240), unique=True)
+    Criteria = db.Column(db.String(240))
+    Comment = db.Column(db.String(240))
     Reference = db.Column(db.String(70))
     
 
