@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, send_file, flash, url_for, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, NewProjectForm, ChecklistForm
-from app.models import User, Project, Checklist, ModifiedRow, OriginalRow
+from app.models import User, Project, ModifiedRow, OriginalRow
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.makeletter import makeLetter
@@ -60,8 +60,11 @@ def checklist(username,projectname):
             current_project.checklist_is_original = False
             for rows in saved_comments:
                 saved_row_number, saved_comment = rows.split('|')[0], rows.split('|')[1]
-                saved_row = ModifiedRow(row_number=saved_row_number, checked=True, Comment=saved_comment, checklist_name=current_project)
-                db.session.add(saved_row)
+                try:
+                    saved_row = ModifiedRow(row_number=saved_row_number, checked=True, Comment=saved_comment, saved_comment=current_project)
+                    db.session.add(saved_row)
+                except: 
+                    print('IT WAS THE MODIFIED ROW')
             db.session.commit()
         else:
             return('ERROR')

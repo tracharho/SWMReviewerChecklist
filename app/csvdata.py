@@ -1,5 +1,5 @@
 import os, json, csv
-from app.models import Checklist, ModifiedRow, OriginalRow
+from app.models import  ModifiedRow, OriginalRow
 from app import db
 
 # TO DO
