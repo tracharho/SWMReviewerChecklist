@@ -7,6 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.makeletter import makeLetter
 from flask_sqlalchemy import SQLAlchemy
 from app.csvdata import createChecklistJSON
+from sqlalchemy.orm.session import make_transient
 
 @app.route("/") 
 @app.route("/landing")
@@ -34,11 +35,11 @@ def projectlist(username):
 @login_required
 def checklist(username,projectname):
     current_project = Project.query.filter_by(name=projectname).first()
+    list_of_rows = OriginalRow.query.all()
     if current_project.checklist_is_original == True:
-        list_of_rows = OriginalRow.query.all()
+        pass
     else:
         #TODO Addin logic to insert the edited rows.
-        list_of_rows = OriginalRow.query.all() #
         list_of_saved_rows = ModifiedRow.query.filter_by(parent_project_id=current_project.id).all()
         list_of_saved_row_numbers = []
         list_of_saved_row_comments = []
@@ -47,9 +48,12 @@ def checklist(username,projectname):
             list_of_saved_row_comments.append(n.Comment)
         for original_row in list_of_rows:
             if original_row.row_number in list_of_saved_row_numbers:
+                db.session.expunge(original_row)
+                make_transient(original_row)
                 index = list_of_saved_row_numbers.index(original_row.row_number)
                 original_row.Comment = list_of_saved_row_comments[index]
                 original_row.checked = True
+                print(original_row.Comment)
     form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
@@ -70,7 +74,13 @@ def checklist(username,projectname):
             current_project.checklist_is_original = False
             for rows in saved_comments:
                 saved_row_number, saved_comment = rows.split('|')[0], rows.split('|')[1]
-                saved_row = ModifiedRow(row_number=saved_row_number, Comment=saved_comment, parent_project_id=current_project.id)
+        #list_of_saved_rows = ModifiedRow.query.filter_by(parent_project_id=current_project.id).all()
+                existing_saved_row = ModifiedRow.query.filter_by(parent_project_id=current_project.id, row_number=saved_row_number).first()
+                if existing_saved_row is None:
+                    saved_row = ModifiedRow(row_number=saved_row_number, Comment=saved_comment, parent_project_id=current_project.id)
+                else:
+                    db.session.delete(existing_saved_row)
+                    saved_row = ModifiedRow(row_number=saved_row_number, Comment=saved_comment, parent_project_id=current_project.id)
                 db.session.add(saved_row)
             db.session.commit()
     return render_template('checklist.html', title='CHECKLIST', current_project=current_project, username=username, form=form, list_of_rows=list_of_rows)
