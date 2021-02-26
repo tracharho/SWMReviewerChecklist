@@ -14,6 +14,8 @@ document.getElementById('submit').onclick = function() {
     for (let checkbox of checkboxes) {
       if (checkbox.checked) {
         let rowNumValue = checkbox.id;
+	      console.log(checkbox.id);
+	      console.log('hit');
         let comment = document.getElementById(commentIDPrefix+rowNumValue);
         let reference = document.getElementById(referenceIDPrefix+rowNumValue);
 	let letterComment;
@@ -43,6 +45,7 @@ save_button.addEventListener("click", function(){
 	rowComment = comment.placeholder;
 	}
 	checkbox.value = checkbox.id + "|" + rowComment;
+	      console.log(checkbox.id);
     }
   }
 });

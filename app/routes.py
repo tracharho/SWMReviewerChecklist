@@ -39,9 +39,17 @@ def checklist(username,projectname):
     else:
         #TODO Addin logic to insert the edited rows.
         list_of_rows = OriginalRow.query.all() #
-        list_of_saved_rows = ModifiedRow.query.filter_by(parent_project_id=current_project.id)
-        for saved_row in list_of_saved_rows:
-            print(saved_row.row_number)
+        list_of_saved_rows = ModifiedRow.query.filter_by(parent_project_id=current_project.id).all()
+        list_of_saved_row_numbers = []
+        list_of_saved_row_comments = []
+        for n in list_of_saved_rows:
+            list_of_saved_row_numbers.append(n.row_number)
+            list_of_saved_row_comments.append(n.Comment)
+        for original_row in list_of_rows:
+            if original_row.row_number in list_of_saved_row_numbers:
+                index = list_of_saved_row_numbers.index(original_row.row_number)
+                original_row.Comment = list_of_saved_row_comments[index]
+                original_row.checked = True
     form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
@@ -56,16 +64,15 @@ def checklist(username,projectname):
             letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
             return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
         # Check if modified exist. If it does, then don't save. 
+        # Ensure overwriting is correct
         if request.form['but'] == 'Save':
             saved_comments = request.form.getlist('checkbox')
             current_project.checklist_is_original = False
             for rows in saved_comments:
                 saved_row_number, saved_comment = rows.split('|')[0], rows.split('|')[1]
-                    saved_row = ModifiedRow(row_number=saved_row_number, checked=True, Comment=saved_comment, parent_project_id=current_project.id)
-                    db.session.add(saved_row)
+                saved_row = ModifiedRow(row_number=saved_row_number, Comment=saved_comment, parent_project_id=current_project.id)
+                db.session.add(saved_row)
             db.session.commit()
-        else:
-            return('ERROR')
     return render_template('checklist.html', title='CHECKLIST', current_project=current_project, username=username, form=form, list_of_rows=list_of_rows)
 
 

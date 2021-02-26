@@ -62,7 +62,7 @@ def createChecklistJSON():
                     for k, v in row.items(): # k : column name & v : column value
                         a[k] = v      
                     
-                    a["rownum"] = ("row"+str(j))
+                    a["row_number"] = ("row"+str(j))
                     a['subcategory'] = filename
                     a['category'] = cat
                     for k, v in a.items():

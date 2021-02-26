@@ -41,8 +41,8 @@ class ModifiedRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     row_number = db.Column(db.String)
     parent_project_id  = db.Column(db.Integer, db.ForeignKey('project.id'))
-    checked = db.Column(db.Boolean(), default = False)
     Comment = db.Column(db.String(240))
+    
 
 #The table containing rows of the original checklist 
 #The intent is to have the checklist load these rows in by default, but check
@@ -50,7 +50,7 @@ class ModifiedRow(db.Model):
 #load the user's specific row in that place. 
 class OriginalRow(db.Model):
     id  = db.Column(db.Integer, primary_key=True)
-    rownum = db.Column(db.String, unique=True)
+    row_number = db.Column(db.String, unique=True)
     category = db.Column(db.String(50))
     subcategory = db.Column(db.String(50))
     checked = db.Column(db.Boolean(), default = False, nullable=False)
