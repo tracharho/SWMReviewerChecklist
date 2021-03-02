@@ -20,7 +20,7 @@
 		</div>
 		</a>
 		<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
-			<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false">
+			<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false" {% if rows.checked == True %}checked{% endif %}>
 			<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
 			<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
 			<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
@@ -29,7 +29,7 @@
     		{% if list_of_rows[loop.index0-1].category == list_of_rows[loop.index0].category %}
 			{% if list_of_rows[loop.index0-1].subcategory == list_of_rows[loop.index0].subcategory %}
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
-				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
@@ -41,7 +41,7 @@
 				</div>
 				</a>
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
-				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
@@ -54,7 +54,7 @@
 			</div>
 			{% if list_of_rows[loop.index0-1].subcategory == list_of_rows[loop.index0].subcategory %}
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
-				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
@@ -66,7 +66,7 @@
 				</div>
 				</a>
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
-				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false">
+				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
 				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>

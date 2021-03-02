@@ -83,6 +83,10 @@ def checklist(username,projectname):
                     saved_row = ModifiedRow(row_number=saved_row_number, Comment=saved_comment, parent_project_id=current_project.id)
                 db.session.add(saved_row)
             db.session.commit()
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '': 
+                next_page = url_for('projectlist', username=current_user.username)
+            return redirect(next_page)   
     return render_template('checklist.html', title='CHECKLIST', current_project=current_project, username=username, form=form, list_of_rows=list_of_rows)
 
 
