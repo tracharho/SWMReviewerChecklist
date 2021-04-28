@@ -64,8 +64,8 @@ def checklist(username,projectname):
             reviewername = current_user.username
             recipientname = current_project.recipient
             projectname = current_project.name
-            dscnumber = current_project.dsc_number
-            letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
+            projectnumber = current_project.dsc_number
+            letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, projectnumber, comments)
             return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
         # Check if modified exist. If it does, then don't save. 
         # Ensure overwriting is correct
@@ -120,14 +120,14 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        flash('You have registered.')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('You have successfully logged out!')
+    flash('You logged out.')
     return redirect(url_for('landing'))
 
 @app.route('/new_project', methods=['GET','POST'])
@@ -135,7 +135,7 @@ def logout():
 def new_project():
     form = NewProjectForm()
     if form.validate_on_submit():
-        project = Project(name=form.project_name.data, dsc_number=form.dsc_number.data, recipient=form.recipient.data ,author=current_user)
+        project = Project(name=form.project_name.data, dsc_number=form.project_number.data, recipient=form.recipient.data ,author=current_user)
         db.session.add(project)
         db.session.commit()
         flash('Project has been saved!')
