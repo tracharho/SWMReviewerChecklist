@@ -8,6 +8,7 @@ from app.makeletter import makeLetter
 from flask_sqlalchemy import SQLAlchemy
 from app.csvdata import createChecklistJSON
 from sqlalchemy.orm.session import make_transient
+import os
 
 @app.route("/") 
 @app.route("/landing")
@@ -53,7 +54,6 @@ def checklist(username,projectname):
                 index = list_of_saved_row_numbers.index(original_row.row_number)
                 original_row.Comment = list_of_saved_row_comments[index]
                 original_row.checked = True
-                print(original_row.Comment)
     form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.

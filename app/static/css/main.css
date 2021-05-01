@@ -194,3 +194,7 @@ align-self: baseline;
     width:80px;
     font-size: 0.8rem;
 }
+
+input[type=text] {
+        ovrflow-wrap: break-word;
+    }

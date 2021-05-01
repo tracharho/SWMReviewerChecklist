@@ -3,9 +3,18 @@ from docx.shared import Inches, Pt
 import os
 from datetime import datetime
 
+def clearDocuments():
+     foo = os.getcwd() + "/app/static"
+     files_in_directory = os.listdir(foo)
+     filtered_files = [file for file in files_in_directory if file.endswith(".docx")]
+     for file in filtered_files:
+          path_to_file = os.path.join(foo, file)
+          os.remove(path_to_file)
+
 def makeLetter(reviewername, recipientname, projectname, dscnumber, comments):
     picture_path = '/app/static/LetterHead.PNG'
     letter_path = '/app/static/letters'
+    clearDocuments()
     doc = Document()
     sections = doc.sections
     sections[0].left_margin,sections[0].right_margin,sections[0].top_margin,sections[0].bottom_margin = Inches(0.75), Inches(0.75), Inches(0.5), Inches(0.5)    # Adding the City Logo
