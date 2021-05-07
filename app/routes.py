@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, send_file, flash, url_for, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, NewProjectForm, ChecklistForm
+from app.forms import LoginForm, RegistrationForm, NewProjectForm, ChecklistForm, ProjectListForm
 from app.models import User, Project, ModifiedRow, OriginalRow
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
@@ -26,8 +26,15 @@ def index():
 
 @app.route("/<username>/projectlist", methods=['GET','POST'])
 @login_required
-def projectlist(username): 
-    return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST') 
+def projectlist(username):
+    form = ProjectListForm() 
+    if request.method == 'POST':
+        if request.form['but'] == 'Delete':
+            selected_projects = request.form.getlist('checkbox')
+            for project in selected_projects:
+                db.session.delete(Project.query.filter_by(name=project).first())            
+            db.session.commit()
+    return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST', form=form) 
 
 
 #HIDDEN CSRF TOKEN???

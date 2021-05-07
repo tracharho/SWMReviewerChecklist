@@ -1,8 +1,10 @@
 
 
 /*
+The frontend way to prepare data to send to backend
+
 onclick function that gets all checkboxes that are checked 
-and appends the comment and reference to the value.
+and appends the comment and reference to the checkbox value.
 
 cIndex: comment index used to find the associated comment
 rIndex: reference index used to find the associated comment
@@ -14,8 +16,6 @@ document.getElementById('submit').onclick = function() {
     for (let checkbox of checkboxes) {
       if (checkbox.checked) {
         let rowNumValue = checkbox.id;
-	      console.log(checkbox.id);
-	      console.log('hit');
         let comment = document.getElementById(commentIDPrefix+rowNumValue);
         let reference = document.getElementById(referenceIDPrefix+rowNumValue);
 	let letterComment;
@@ -28,6 +28,8 @@ document.getElementById('submit').onclick = function() {
 	checkbox.value = letterComment;
     }
   }
+};
+
 };
 let save_button = document.getElementById("save");
 save_button.addEventListener("click", function(){
