@@ -4,7 +4,7 @@
 <h3>Reviewer: {{ current_user.username }}</h3>
 <h4>Project: {{ current_project.name }} </h4>
 <h4>Recipient: {{ current_project.recipient }} </h4>
-<h4>DSC Number: {{ current_project.dsc_number }} </h4>
+<h4>Project Number: {{ current_project.dsc_number }} </h4>
 <form action="{{ url_for('checklist', username=current_user.username, projectname=current_project.name) }}" method="POST">
 {{ form.hidden_tag() }} 
 {% for rows in list_of_rows %}
@@ -22,7 +22,7 @@
 		<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
 			<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false" {% if rows.checked == True %}checked{% endif %}>
 			<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
-			<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
+			<textarea class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}"></textarea>
 			<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
 		</div>
 	{% else  %}
@@ -31,7 +31,7 @@
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
-				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
+				<textarea class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}"></textarea>
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
 				</div>
 			{% else %}
@@ -43,7 +43,7 @@
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
-				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
+				<textarea class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}"></textarea>
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
 				</div>
 			{% endif %}
@@ -56,7 +56,7 @@
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
-				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
+				<textarea class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}"></textarea>
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
 				</div>
 			{% else %}
@@ -68,7 +68,7 @@
 				<div class="rowcontainer row-of-{{rows.subcategory}}" name="row-subcategory-{{rows.subcategory}}" id="rowcontainer-{{rows.row_number}}" style="display: none;">
 				<input class="cb" name="checkbox" type="checkbox" id="{{rows.row_number}}" spellcheck="false"{% if rows.checked == True %}checked{% endif %}>
 				<p class="criteria" name="criteria" id="criteria-{{rows.row_number}}">{{rows.Criteria}}</p>
-				<input type="text" class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}">
+				<textarea class="comment" name="TARGET" id="comment-{{rows.row_number}}" placeholder="{{rows.Comment}}"></textarea>
 				<p class="reference" name="reference" id="reference-{{rows.row_number}}">{{rows.Reference}}</p>
 				</div>
 			{% endif %}

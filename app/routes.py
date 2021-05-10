@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, send_file, flash, url_for, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, NewProjectForm, ChecklistForm
+from app.forms import LoginForm, RegistrationForm, NewProjectForm, ChecklistForm, ProjectListForm
 from app.models import User, Project, ModifiedRow, OriginalRow
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
@@ -8,6 +8,7 @@ from app.makeletter import makeLetter
 from flask_sqlalchemy import SQLAlchemy
 from app.csvdata import createChecklistJSON
 from sqlalchemy.orm.session import make_transient
+import os
 
 @app.route("/") 
 @app.route("/landing")
@@ -25,8 +26,15 @@ def index():
 
 @app.route("/<username>/projectlist", methods=['GET','POST'])
 @login_required
-def projectlist(username): 
-    return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST') 
+def projectlist(username):
+    form = ProjectListForm() 
+    if request.method == 'POST':
+        if request.form['but'] == 'Delete':
+            selected_projects = request.form.getlist('checkbox')
+            for project in selected_projects:
+                db.session.delete(Project.query.filter_by(name=project).first())            
+            db.session.commit()
+    return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST', form=form) 
 
 
 #HIDDEN CSRF TOKEN???
@@ -53,7 +61,6 @@ def checklist(username,projectname):
                 index = list_of_saved_row_numbers.index(original_row.row_number)
                 original_row.Comment = list_of_saved_row_comments[index]
                 original_row.checked = True
-                print(original_row.Comment)
     form = ChecklistForm()
     #Functions.js first sets all checkbox values to be equal to the entry box
     #Then the POST method gets all checked values.
@@ -64,8 +71,8 @@ def checklist(username,projectname):
             reviewername = current_user.username
             recipientname = current_project.recipient
             projectname = current_project.name
-            dscnumber = current_project.dsc_number
-            letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, dscnumber, comments)
+            projectnumber = current_project.dsc_number
+            letter_path, letter_name = makeLetter(reviewername, recipientname, projectname, projectnumber, comments)
             return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
         # Check if modified exist. If it does, then don't save. 
         # Ensure overwriting is correct
@@ -120,14 +127,14 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        flash('You have registered.')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('You have successfully logged out!')
+    flash('You logged out.')
     return redirect(url_for('landing'))
 
 @app.route('/new_project', methods=['GET','POST'])
@@ -135,7 +142,7 @@ def logout():
 def new_project():
     form = NewProjectForm()
     if form.validate_on_submit():
-        project = Project(name=form.project_name.data, dsc_number=form.dsc_number.data, recipient=form.recipient.data ,author=current_user)
+        project = Project(name=form.project_name.data, dsc_number=form.project_number.data, recipient=form.recipient.data ,author=current_user)
         db.session.add(project)
         db.session.commit()
         flash('Project has been saved!')

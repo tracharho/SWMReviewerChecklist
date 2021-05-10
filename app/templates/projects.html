@@ -1,14 +1,26 @@
 {% extends "base.html" %}
-
 {% block content %}
-{{ username }}
-<ul>
+<style>
+    .row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items:baseline;
+    align-content: left;
+    height: auto;
+}
+</style>
+<form action="" method="post" novalidate>
+{{ form.hidden_tag() }} 
 {% for project in projects %}
-    <form action="{{ url_for('checklist', username=username, projectname=project.name) }}" method="POST">
-        <a href="{{ url_for('checklist', username=username, projectname=project.name) }}"><p>{{ project.name}} - DSC # {{ project.dsc_number }}</p></a>
-    </form>
+    <div class="row">
+    <input class="cb" name="checkbox" type="checkbox" id="{{loop.index0}}" value="{{project.name}}" spellcheck="false">
+    <a id="project-{{loop.index0}}" href="{{ url_for('checklist', username=username, projectname=project.name) }}"><p>{{ project.name}} - Project # {{ project.dsc_number }}</p></a>
+    </div>
     <hr>
 {% endfor %}
 </ul>
     <a href="{{ url_for('new_project') }}">Create New Project</a>
+    <input type="submit" name="but" id="delete" value="Delete" spellcheck="false">
+</form>
+<script type ="text/javascript" src="{{ url_for('static', filename='js/functions.js') }}"></script>
 {% endblock %}
