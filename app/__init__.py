@@ -6,7 +6,6 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from flaskwebgui import FlaskUI
 
-
 app = Flask(__name__, static_folder='static')
 csrf = CSRFProtect(app)
 csrf.init_app(app)
@@ -21,8 +20,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 login = LoginManager(app)
 login.login_view = 'login' #requires user to be logged in to view certain pages
-
-
 
 from app import routes, models, makeletter
 

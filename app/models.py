@@ -40,7 +40,7 @@ class Project(db.Model):
 class ModifiedRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     row_number = db.Column(db.String)
-    parent_project_id  = db.Column(db.Integer, db.ForeignKey('project.id'))
+    parent_project_id  = db.Column(db.Integer, db.ForeignKey('project.id', ondelete='CASCADE'))
     Comment = db.Column(db.String(240))
     
 

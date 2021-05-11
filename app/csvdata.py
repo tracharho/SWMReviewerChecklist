@@ -42,10 +42,8 @@ def createChecklistJSON():
     j = 1 # int iterator
     
     row_num = [] #row number list
-    #
     #sub : list of subcategories
     #filename : String name of the subcategory
-    #print(catandsub.items())
     for cat, sub in catandsub.items():
         c = []
         for file in sub: #for each .csv in the folder
@@ -76,6 +74,7 @@ def createChecklistJSON():
     jsonFilePath = os.getcwd()+ path_to_csvs + ".json"
     with open(jsonFilePath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
+        print('hit')
 
 if __name__ == "__main__":
     createChecklistJSON()

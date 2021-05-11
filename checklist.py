@@ -6,11 +6,11 @@ from app.csvdata import createChecklistJSON
 def make_shell_context():
     return {'db':db, 'User':User, 'Project':Project, 'ModifiedRow':ModifiedRow, 'OriginalRow':OriginalRow}
 
-#createChecklistJSON()
-#to do model editings in shell
-# $ export FLASK_APP=checklist.py
 
+#to do model editings in shell
 # MAKE SURE YOU'RE IN THE RIGHE DIRECTORY
+# $ export FLASK_APP=checklist.py
+# >>> createChecklistJSON()
 # >>> db.create_all() #initializes the database.
 # Note that sometiems the database needs to be deleted to be re iniitailized. 
 # The original rows table needs to be recreated via the createChecklistJSON function after a db deletion
