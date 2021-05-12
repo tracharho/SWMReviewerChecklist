@@ -46,16 +46,17 @@ def projectlist(username):
 def checklist(username,projectname):
     current_project = Project.query.filter_by(name=projectname).first()
     list_of_rows = OriginalRow.query.all()
+    list_of_saved_row_numbers = []
+    list_of_saved_row_comments = []
     if current_project.checklist_is_original == True:
         pass
     else:
         #TODO Addin logic to insert the edited rows.
         list_of_saved_rows = ModifiedRow.query.filter_by(parent_project_id=current_project.id).all()
-        list_of_saved_row_numbers = []
-        list_of_saved_row_comments = []
         for n in list_of_saved_rows:
             list_of_saved_row_numbers.append(n.row_number)
             list_of_saved_row_comments.append(n.Comment)
+        # i
         for original_row in list_of_rows:
             if original_row.row_number in list_of_saved_row_numbers:
                 db.session.expunge(original_row)
@@ -78,12 +79,14 @@ def checklist(username,projectname):
             return send_file(letter_path, as_attachment=True, attachment_filename=letter_name)
         # Check if modified exist. If it does, then don't save. 
         # Ensure overwriting is correct
+        # PLEASE REFACTOR ME, MY VARIABLE NAMES ARE NOT CLEAR
         if request.form['but'] == 'Save':
-            saved_comments = request.form.getlist('checkbox')
-            current_project.checklist_is_original = False
+            saved_comments = request.form.getlist('checkbox')   #returns the value of all checkbox items from DOM
+            current_project.checklist_is_original = False   
+            newly_saved_rows = []
             for rows in saved_comments:
                 saved_row_number, saved_comment = rows.split('|')[0], rows.split('|')[1]
-        #list_of_saved_rows = ModifiedRow.query.filter_by(parent_project_id=current_project.id).all()
+                newly_saved_rows.append(saved_row_number)
                 existing_saved_row = ModifiedRow.query.filter_by(parent_project_id=current_project.id, row_number=saved_row_number).first()
                 if existing_saved_row is None:
                     saved_row = ModifiedRow(row_number=saved_row_number, Comment=saved_comment, parent_project_id=current_project.id)
@@ -91,7 +94,14 @@ def checklist(username,projectname):
                     db.session.delete(existing_saved_row)
                     saved_row = ModifiedRow(row_number=saved_row_number, Comment=saved_comment, parent_project_id=current_project.id)
                 db.session.add(saved_row)
+            print(saved_comments)#if there are saved comments from a previous session
+            for saved_row_number in list_of_saved_row_numbers: # if there are new saved
+                unchecked_row = ModifiedRow.query.filter_by(parent_project_id=current_project.id, row_number=saved_row_number).first()
+                if unchecked_row.row_number not in newly_saved_rows:
+                    print(unchecked_row.row_number)
+                    db.session.delete(unchecked_row)
             db.session.commit()
+            print('commited')
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '': 
                 next_page = url_for('projectlist', username=current_user.username)
