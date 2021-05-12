@@ -33,7 +33,7 @@ def projectlist(username):
             selected_projects = request.form.getlist('checkbox')
             for project in selected_projects:
                 db.session.delete(Project.query.filter_by(name=project).first())  
-            print(ModifiedRow.query.filter_by(parent_project_id==None))
+            #print(ModifiedRow.query.filter_by(parent_project_id==None))
             #db.session.delete(ModifiedRow.query.filter_by(parent_project_id=False).all())          
             db.session.commit()
     return render_template('projects.html', username=username, projects=current_user.projects, title='PROJECT LIST', form=form) 

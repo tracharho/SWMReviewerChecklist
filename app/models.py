@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.sql.expression import cast
 
-
 class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -32,7 +31,7 @@ class Project(db.Model):
     recipient = db.Column(db.String(30), nullable=False)
     checklist = db.column_property("Checklist-"+db.cast(id,db.String))
     checklist_is_original = db.Column(db.Boolean,default=True, nullable=True)
-    rows = db.relationship('ModifiedRow', backref='saved_comment', lazy='dynamic')
+    rows = db.relationship('ModifiedRow', backref='saved_comment', lazy='dynamic', cascade="all, delete-orphan")
 
     def __repr__(self):
         return '<name {} dsc_number {} recipient {} checklist {}>'.format(self.dsc_number, self.name, self.recipient, self.checklist)
@@ -43,7 +42,6 @@ class ModifiedRow(db.Model):
     parent_project_id  = db.Column(db.Integer, db.ForeignKey('project.id', ondelete='CASCADE'))
     Comment = db.Column(db.String(240))
     
-
 #The table containing rows of the original checklist 
 #The intent is to have the checklist load these rows in by default, but check
 #if the project in use has a checked checkbox and/or entry text. If yes, then
@@ -58,8 +56,6 @@ class OriginalRow(db.Model):
     Comment = db.Column(db.String(240))
     Reference = db.Column(db.String(70))
     
-
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
