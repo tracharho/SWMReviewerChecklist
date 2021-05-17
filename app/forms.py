@@ -31,6 +31,10 @@ class NewProjectForm(FlaskForm):
     project_name = StringField('Project Name', validators=[DataRequired()])
     project_number = StringField('Project Number', validators=[DataRequired()])
     recipient = StringField('Recipient', validators=[DataRequired()])
+    disturbed_area = StringField('Disturbed Area in Square Feet', validators=[DataRequired()])
+    lda_reqd = BooleanField('Is a Land Disturbing Permit Required?')
+    vsmp_reqd = BooleanField('Is a VSMP Permit Required?')
+    bmp_recording_reqd = BooleanField('Do BMP Maintenance Agreements Need to be Recorded?')
     submit = SubmitField('Submit')
 
 class ProjectListForm(FlaskForm):

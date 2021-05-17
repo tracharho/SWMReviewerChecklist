@@ -49,8 +49,14 @@ save_button.addEventListener("click", function(){
 }
 });
 
+let wait_time = 25;
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 //used to loop through a subcategory's rows and shows or hides them. 
-function collapseChildren(obj) {
+async function collapseChildren(obj) {
 let children = obj.children;
 let rows = document.getElementsByName("row"+children[0].id);
 for (row of rows) {
@@ -59,13 +65,13 @@ for (row of rows) {
 };
 
 //hides the obj
-function hide(obj) {
+async function hide(obj) {
 obj.style.display = "none";
 }
 
 //shows or hides the object.
 //some objects are initializaed with a display value of ""
-function showOrHide(obj) {
+async function showOrHide(obj) {
 if (obj.style.display === '') {
   obj.style.display = 'none';
 }
@@ -83,13 +89,14 @@ catAnchor : Category Anchor element
 subAnchor : Subcategory Anchor element
 Element heirachy : catAnchor < catCollapsible < subAnchor < subCollapsible < rows
 */
-function show(obj) {
+async function show(obj) {
 let thisClass = obj.attributes.class.value;
 if (thisClass == "catAnchor") {
   let catName = obj.attributes.name.value; //names like Stormwater or General Requirements
   let subs = document.getElementsByClassName("sub-of-"+String(catName)); //children Names are in this format
   for (sub of subs) {
     showOrHide(sub);
+    await sleep(wait_time);
     let subName = sub.attributes.name.value;
     let rows = document.getElementsByClassName("row-of-"+String(subName)); //find each subcategories rows by id in "row{id}" format
     for (row of rows) {
@@ -97,9 +104,11 @@ if (thisClass == "catAnchor") {
       //The category closes all opened children (subcategories) and "grandchildren" (rows)
       if (row.style.display == "flex" && sub.style.display == "flex") {
         hide(row);
+        await sleep(wait_time);
       }
       if (row.style.display == "flex" && sub.style.display == "none") {
         hide(row);
+        await sleep(wait_time);
       }
     }
   } 
@@ -110,6 +119,7 @@ else {
       let rows = document.getElementsByClassName("row-of-"+String(subName)); //find each subcategories rows by id in "row{id}" format
       for (row of rows) {
               showOrHide(row);
+              await sleep(wait_time);
               }
         
       }  

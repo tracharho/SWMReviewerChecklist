@@ -2,68 +2,70 @@
 /*Need to hit shift f5 to reset browser cache*/
 
 html, body {
-    width: 1200px;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     font-family: Roboto, Arial, sans-serif;
     font-size: 15px;
     background: #f4f4f4;
 	color: #333;
 	line-height: 1.6;
-    }
-    form {
-    border: 5px solid #f1f1f1;
-    width: 100%;
-    }
-    input[type=text], input[type=password] {
-    width: 50%;
-    padding: 16px 8px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    }
-    #submit {
-    background-color: #8ebf42;
-    color: white;
-    padding: 14px 0;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 20px;
+}
 
-    }
+input[type=text], input[type=password] {
+width: 100%;
+padding: 16px 8px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+box-sizing: border-box;
+}
     
-    h1 {
-    text-align:start;
-    font-size:30px;
+#submit {
+background-color: #8ebf42;
+color: white;
+padding: 14px 0;
+margin: 10px 0;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+width: 100%;
+font-size: 20px;
+}
+    
+h1 {
+text-align:start;
+font-size:30px;
+}
+
+button:hover {
+opacity: 0.8;
+}
+    
+.formcontainer {
+text-align: left;
+margin: 24px 50px 12px;
+}
+    
+.container {
+align-content: center;
+padding: 16px 0;
+text-align:center;
+}
+
+span.psw {
+float: right;
+padding-top: 0;
+padding-right: 15px;
+}
+    
+/* Change styles for span on extra small screens */
+@media screen and (max-width: 300px) {
+span.psw {
+display: block;
+float: none;
     }
-    button:hover {
-    opacity: 0.8;
-    }
-    .formcontainer {
-    text-align: left;
-    margin: 24px 50px 12px;
-    }
-    .container {
-	align-content: center;
-    padding: 16px 0;
-    text-align:center;
-    }
-    span.psw {
-    float: right;
-    padding-top: 0;
-    padding-right: 15px;
-    }
-    /* Change styles for span on extra small screens */
-    @media screen and (max-width: 300px) {
-    span.psw {
-    display: block;
-    float: none;
-        }
-    }
+}
 
 form {
     background-color: #e4e2e2c2;
@@ -102,7 +104,6 @@ div[name="rowcontainer"] {
     cursor: pointer;
     overflow:hidden;
     margin: 2px;
-    width: 700px;
     border: none;
     text-align: left;
     outline: none;
@@ -111,6 +112,7 @@ div[name="rowcontainer"] {
     height: 4rem;
     display: flex;
     align-content: flex-start;
+    width: 800px;
 }
 
 .catHeader {
@@ -126,13 +128,13 @@ div[name="rowcontainer"] {
     cursor: pointer;
     overflow:hidden;
     margin: 2px;
-    width: 80%;
     border: none;
     text-align: left;
     outline: none;
-    border-radius: 2.5px;
+    border-radius: 5px;
     height: 4rem;
-    margin-left: 40px;
+    margin-left: 0px;
+    width: 800px;
 }
 
 .subHeader {
@@ -142,19 +144,15 @@ div[name="rowcontainer"] {
     color: white;
 }
 
-a {
-    width: 100%;
-}
-
 .rowcontainer {
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    width: 700px;
+    width: 800px;
     padding:5px;
     margin:5px;
     display: flex;
     flex-flow: row nowrap;
-    margin-left: 40px;
+    margin-left: 0px;
     align-items:baseline;
     align-content: center;
     justify-content:space-around;
