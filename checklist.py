@@ -8,11 +8,15 @@ def make_shell_context():
 
 
 #to do model editings in shell
+# The original rows table needs to be precreated via the createChecklistJSON function after a db deletion
 # MAKE SURE YOU'RE IN THE RIGHE DIRECTORY
+# Comment out ui.run in __init__.py
 # $ export FLASK_APP=checklist.py
+# $ flask shell
+# >>> from app import db
 # >>> db.create_all() #initializes the database.
+# >>> from app.csvdata import createChecklistJSON as cCJ
+# >>> cCJ()
 # >>> db.session.commit()
-# >>> createChecklistJSON()
 # Note that sometiems the database needs to be deleted to be re iniitailized. 
-# The original rows table needs to be recreated via the createChecklistJSON function after a db deletion
 

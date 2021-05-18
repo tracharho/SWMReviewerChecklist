@@ -33,20 +33,6 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.lda_reqd() }}
-            {{ form.lda_reqd.label }}<br>
-            {% for error in form.project_number.errors %}
-            <span style="color": red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.vsmp_reqd() }}
-            {{ form.vsmp_reqd.label }}<br>
-            {% for error in form.project_number.errors %}
-            <span style="color": red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
             {{ form.bmp_recording_reqd() }}
             {{ form.bmp_recording_reqd.label }}<br>
             {% for error in form.project_number.errors %}

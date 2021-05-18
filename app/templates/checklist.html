@@ -5,6 +5,7 @@
 <h4>Project: {{ current_project.name }} </h4>
 <h4>Recipient: {{ current_project.recipient }} </h4>
 <h4>Project Number: {{ current_project.dsc_number }} </h4>
+<h4>Disturbed Area: {{ current_project.disturbed_area }} </h4>
 <form action="{{ url_for('checklist', username=current_user.username, projectname=current_project.name) }}" method="POST">
 {{ form.hidden_tag() }} 
 {% for rows in list_of_rows %}

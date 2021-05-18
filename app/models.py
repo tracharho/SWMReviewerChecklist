@@ -26,12 +26,10 @@ class User(db.Model, UserMixin):
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    name = db.Column(db.String(140), nullable=False, unique=True)
+    name = db.Column(db.String(140), nullable=False, unique=False)
     dsc_number = db.Column(db.String(20), nullable=False)
     recipient = db.Column(db.String(30), nullable=False)
     disturbed_area = db.Column(db.Integer, nullable=False)
-    lda_reqd = db.Column(db.Boolean, default = True, nullable = True)
-    vsmp_reqd = db.Column(db.Boolean, default = True, nullable = True)
     bmp_recording_reqd = db.Column(db.Boolean, default = True, nullable = True)
     checklist = db.column_property("Checklist-"+db.cast(id,db.String))
     checklist_is_original = db.Column(db.Boolean,default=True, nullable=True)
