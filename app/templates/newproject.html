@@ -39,6 +39,34 @@
             <span style="color": red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+        <p>
+            {{ form.rma_present() }}
+            {{ form.rma_present.label }}<br>
+            {% for error in form.project_number.errors %}
+            <span style="color": red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.rpa_present() }}
+            {{ form.rpa_present.label }}<br>
+            {% for error in form.project_number.errors %}
+            <span style="color": red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.wmp_present() }}
+            {{ form.wmp_present.label }}<br>
+            {% for error in form.project_number.errors %}
+            <span style="color": red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.wetlands_present() }}
+            {{ form.wetlands_present.label }}<br>
+            {% for error in form.project_number.errors %}
+            <span style="color": red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}

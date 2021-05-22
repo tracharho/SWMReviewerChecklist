@@ -32,7 +32,11 @@ class NewProjectForm(FlaskForm):
     project_number = StringField('Project Number', validators=[DataRequired()])
     recipient = StringField('Recipient', validators=[DataRequired()])
     disturbed_area = StringField('Disturbed Area in Square Feet', validators=[DataRequired()])
-    bmp_recording_reqd = BooleanField('Do BMP Maintenance Agreements Need to be Recorded?')
+    rpa_present = BooleanField('Are RPAs (Resource Protection Areas) present?')
+    rma_present = BooleanField('Are RMAs (Resource Management Areas) present?')
+    wmp_present = BooleanField('Is the WMP (Watershed Management and Protection Area) present?')
+    wetlands_present = BooleanField('Are wetlands present?')
+    bmp_recording_reqd = BooleanField('Do BMP Maintenance Agreements need to be recorded?')
     submit = SubmitField('Submit')
 
 class ProjectListForm(FlaskForm):

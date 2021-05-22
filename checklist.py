@@ -19,4 +19,8 @@ def make_shell_context():
 # >>> cCJ()
 # >>> db.session.commit()
 # Note that sometiems the database needs to be deleted to be re iniitailized. 
+# THe corresponding flask db migration folder needs to be deleted as well
+# $ flask db init
+# $ flask db migrate -m "Initial Migration"
+# # flask db upgrade
 

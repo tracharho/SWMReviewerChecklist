@@ -156,7 +156,9 @@ def new_project():
     if form.validate_on_submit():
         project = Project(name = form.project_name.data, dsc_number = form.project_number.data, 
             recipient = form.recipient.data, disturbed_area = form.disturbed_area.data,
-            bmp_recording_reqd=form.bmp_recording_reqd.data, author=current_user)
+            rpa_present=form.rpa_present.data, rma_present=form.rma_present.data, 
+            wmp_present=form.wmp_present.data, bmp_recording_reqd=form.bmp_recording_reqd.data, 
+            wetlands_present=form.wetlands_present.data, author=current_user)
         db.session.add(project)
         db.session.commit()
         flash('Project has been saved!')
